@@ -7,6 +7,8 @@ import { isLogged, login } from '../../redux/logged';
 
 interface NeonTextProps {
     text: string;
+    fontSize?: string;
+    color?: 'white-on' | 'white-off';
 }
 
 const css = `
@@ -15,10 +17,20 @@ display: inline-block
 border: purple 1px solid;
 color: purple;`;
 
-const NeonText: FunctionComponent<NeonTextProps> = ({ text }) => {
+const NeonText: FunctionComponent<NeonTextProps> = ({
+    text,
+    fontSize,
+    color = 'violet',
+}) => {
     return (
         <>
-            <Text className="neon-button">{text}</Text>
+            <Text
+                textAlign="center"
+                className={`neon-button-${color}`}
+                fontSize={fontSize}
+            >
+                {text}
+            </Text>
         </>
     );
 };

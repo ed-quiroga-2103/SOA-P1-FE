@@ -1,6 +1,6 @@
 import { HamburgerIcon } from '@chakra-ui/icons';
-import { IconButton, useDisclosure } from '@chakra-ui/react';
-import { Center, Flex, Spacer, Text } from '@chakra-ui/layout';
+import { Grid, IconButton, useDisclosure } from '@chakra-ui/react';
+import { Center, Flex, GridItem, Spacer, Text } from '@chakra-ui/layout';
 import { FunctionComponent } from 'react';
 import NavDrawer from './NavDrawer';
 import NeonText from '../NeonText/NeonText';
@@ -24,24 +24,39 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     return (
         <>
             <NavDrawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
-            <Flex bg="gray.900" padding="10px">
-                <IconButton
-                    variant="outline"
-                    colorScheme="alphaBlack"
-                    color="white"
-                    aria-label="Drawer Control"
-                    icon={<HamburgerIcon />}
-                    onClick={onOpen}
-                />
-                <Spacer />
-                <Center alignContent="center" justifyContent="center">
-                    {logged ? (
-                        <NeonText text="Logged In!" />
-                    ) : (
-                        <NeonText text="Sign In!" />
-                    )}
-                </Center>
-            </Flex>
+            <Grid templateColumns="repeat(3,1fr)" bg="gray.900" padding="10px">
+                <GridItem colSpan={1}>
+                    <Flex h="100%">
+                        <IconButton
+                            marginTop="auto"
+                            marginBottom="auto"
+                            variant="outline"
+                            colorScheme="alphaBlack"
+                            color="white"
+                            aria-label="Drawer Control"
+                            icon={<HamburgerIcon />}
+                            onClick={onOpen}
+                        />
+                    </Flex>
+                </GridItem>
+                <GridItem colSpan={1}>
+                    <Center>
+                        {logged ? (
+                            <NeonText
+                                fontSize="2xl"
+                                text="Karaoke App!"
+                                color="white-on"
+                            />
+                        ) : (
+                            <NeonText
+                                fontSize="2xl"
+                                text="Karaoke App!"
+                                color="white-off"
+                            />
+                        )}
+                    </Center>
+                </GridItem>
+            </Grid>
         </>
     );
 };
