@@ -1,6 +1,4 @@
-import config from '../../config';
 import { AuthResponse, UserRegistration } from '../../types';
-import axios from 'axios';
 import keycloak from '../keycloak';
 
 const register = async (

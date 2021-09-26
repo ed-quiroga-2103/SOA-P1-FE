@@ -8,10 +8,8 @@ import {
     DrawerHeader,
     DrawerOverlay,
     Input,
-    useDisclosure,
 } from '@chakra-ui/react';
-import React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 interface NavDrawerProps {
     isOpen: boolean;

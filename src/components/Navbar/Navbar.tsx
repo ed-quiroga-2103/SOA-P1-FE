@@ -1,12 +1,12 @@
 import { HamburgerIcon } from '@chakra-ui/icons';
+import { Center, Flex, GridItem } from '@chakra-ui/layout';
 import { Grid, IconButton, useDisclosure } from '@chakra-ui/react';
-import { Center, Flex, GridItem, Spacer, Text } from '@chakra-ui/layout';
 import { FunctionComponent } from 'react';
-import NavDrawer from './NavDrawer';
-import NeonText from '../NeonText/NeonText';
-import Cookies from 'universal-cookie';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'universal-cookie';
 import { isLogged, login } from '../../redux/logged';
+import NeonText from '../NeonText/NeonText';
+import NavDrawer from './NavDrawer';
 
 interface NavbarProps {}
 

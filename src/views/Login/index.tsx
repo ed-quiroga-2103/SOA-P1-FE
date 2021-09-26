@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Grid, GridItem, Square } from '@chakra-ui/react';
+import { Center, Grid, GridItem } from '@chakra-ui/react';
 import { FunctionComponent } from 'react';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import RegisterRedirect from '../../components/LoginForm/RegisterRedirect';

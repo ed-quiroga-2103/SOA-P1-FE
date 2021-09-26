@@ -1,6 +1,6 @@
-import config from '../../config';
-import { AuthResponse, UserRegistration } from '../../types';
 import axios from 'axios';
+import config from '../../config';
+import { UserRegistration } from '../../types';
 import getAuthToken from './getAuthToken';
 
 const registerUser = async (userRegistration: UserRegistration) => {
