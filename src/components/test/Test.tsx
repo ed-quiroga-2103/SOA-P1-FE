@@ -6,8 +6,9 @@ import {
 } from '@chakra-ui/form-control';
 import { Input, Text } from '@chakra-ui/react';
 import { FC, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import auth from '../../lib/auth';
-
+import { login, logout } from '../../redux/logged';
 interface TestProps {}
 
 const Test: FC<TestProps> = () => {
@@ -19,6 +20,8 @@ const Test: FC<TestProps> = () => {
 
     const handleEmail = (event) => setUsername(event.target.value);
     const handlePassword = (event) => setPassword(event.target.value);
+
+    const dispach = useDispatch();
 
     return (
         <>
@@ -63,6 +66,8 @@ const Test: FC<TestProps> = () => {
                         });
                         if (data.accessToken) {
                             setToken(data.accessToken);
+                            console.log(data.accessToken);
+                            dispach(login());
                         }
                         setStatus(data.status);
                     }}
@@ -73,6 +78,8 @@ const Test: FC<TestProps> = () => {
             <br />
             <p>{status < 300 ? `Nice` : 'Error'}</p>
             <p>{token ? `Token: ${token}` : 'Not logged'}</p>
+
+            <br />
         </>
     );
 };
