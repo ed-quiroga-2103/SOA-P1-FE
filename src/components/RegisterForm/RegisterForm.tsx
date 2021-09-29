@@ -89,14 +89,16 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
                             margin="10px"
                             bg="gray.200"
                             onClick={async () => {
-                                console.log(name, lastName, email, username,)
-                                /* const data = await auth.login({
+                                const data = await auth.register({
+                                    name,
+                                    lastName,
+                                    email,
                                     username,
                                     password,
                                 });
                                 if (data.accessToken) {
                                     dispach(login());
-                                } */
+                                }
                             }}
                         >
                             Sign In

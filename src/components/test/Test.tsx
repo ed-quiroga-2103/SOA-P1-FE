@@ -45,16 +45,17 @@ const Test: FC<TestProps> = () => {
                 <br />
                 <Button
                     colorScheme="blue"
-                    onClick={async () => {
+                    /* onClick={async () => {
                         const data = await auth.register({
                             username,
                             password,
+                            
                         });
                         if (data.status === 200) {
                             setToken(data.accessToken);
                         }
                         setStatus(data.status);
-                    }}
+                    }} */
                 >
                     Register
                 </Button>

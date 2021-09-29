@@ -15,17 +15,17 @@ const Register: FunctionComponent<RegisterProps> = () => {
                     gap={2}
                     borderRadius="10px"
                 >
-                    <GridItem paddingTop="10px" colSpan={1} bg="gray.900">
-                        <RegisterForm />
-                    </GridItem>
                     <GridItem
                         colSpan={1}
                         bg="white"
                         borderTopRightRadius="5px"
                         borderBottomRightRadius="5px"
-                        paddingTop="43px"
+                        paddingTop="160px"
                     >
                         <LogInRedirect />
+                    </GridItem>
+                    <GridItem paddingTop="10px" colSpan={1} bg="gray.900">
+                        <RegisterForm />
                     </GridItem>
                 </Grid>
             </Center>
