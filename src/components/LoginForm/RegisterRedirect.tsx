@@ -1,8 +1,10 @@
 import { Button, Container, Stack, Text } from '@chakra-ui/react';
 import { FunctionComponent } from 'react';
+import { useHistory } from 'react-router-dom';
 interface RegisterRedirectProps {}
 
 const RegisterRedirect: FunctionComponent<RegisterRedirectProps> = () => {
+    const history = useHistory();
     return (
         <>
             <Container>
@@ -10,7 +12,11 @@ const RegisterRedirect: FunctionComponent<RegisterRedirectProps> = () => {
                     <Text margin="15px" fontSize="xl">
                         You dont have an account?
                     </Text>
-                    <Button bg="gray.200">Sing Up!</Button>
+                    <Button 
+                        bg="gray.200"
+                        onClick={() => {
+                            history.push('/register');
+                        }}>Sing Up!</Button>
                 </Stack>
             </Container>
         </>
