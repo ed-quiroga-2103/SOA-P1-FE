@@ -6,6 +6,9 @@ import getAuthToken from './getAuthToken';
 const registerUser = async (userRegistration: UserRegistration) => {
     const body = {
         username: userRegistration.username,
+        email: userRegistration.email,
+        lastName: userRegistration.lastName,
+        firstName: userRegistration.name,
         credentials: [
             {
                 type: 'password',

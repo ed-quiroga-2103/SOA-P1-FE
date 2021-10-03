@@ -1,11 +1,11 @@
-import { AuthResponse, UserRegistration } from '../../types';
+import { AuthResponse, UserLogin } from '../../types';
 import keycloak from '../keycloak';
 import Cookies from 'universal-cookie';
 
 const login = async (
-    userRegistration: UserRegistration
+    userLogin: UserLogin
 ): Promise<AuthResponse> => {
-    const tokens = await keycloak.loginUser(userRegistration);
+    const tokens = await keycloak.loginUser(userLogin);
 
     if (!tokens) {
         return { message: 'Wrong username or password', status: 401 };

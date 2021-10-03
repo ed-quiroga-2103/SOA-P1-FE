@@ -1,9 +1,9 @@
 import axios from 'axios';
 import config from '../../config';
-import { UserRegistration } from '../../types';
+import { UserLogin} from '../../types';
 import getAuthToken from './getAuthToken';
 
-const loginUser = async (loginData: UserRegistration) => {
+const loginUser = async (loginData: UserLogin) => {
     const params = new URLSearchParams();
 
     params.append('client_id', 'admin-cli');

@@ -9,6 +9,7 @@ import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import auth from '../../lib/auth';
 import { login, logout } from '../../redux/logged';
+import RegisterForm from '../RegisterForm/RegisterForm';
 interface TestProps {}
 
 const Test: FC<TestProps> = () => {
@@ -44,16 +45,17 @@ const Test: FC<TestProps> = () => {
                 <br />
                 <Button
                     colorScheme="blue"
-                    onClick={async () => {
+                    /* onClick={async () => {
                         const data = await auth.register({
                             username,
                             password,
+                            
                         });
                         if (data.status === 200) {
                             setToken(data.accessToken);
                         }
                         setStatus(data.status);
-                    }}
+                    }} */
                 >
                     Register
                 </Button>
@@ -75,6 +77,7 @@ const Test: FC<TestProps> = () => {
                     Login
                 </Button>
             </FormControl>
+            <RegisterForm></RegisterForm>
             <br />
             <p>{status < 300 ? `Nice` : 'Error'}</p>
             <p>{token ? `Token: ${token}` : 'Not logged'}</p>
