@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import songReducer from '../redux/song';
 import loggedReducer from '../redux/logged';
 
 const store = configureStore({
     reducer: {
+        song: songReducer,
         logged: loggedReducer,
     },
 });

@@ -3,6 +3,7 @@ import '@fontsource/alata';
 import '@fontsource/roboto';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import LyricsEditor from './components/LyricsEditor/LyricsEditor';
 import Navbar from './components/Navbar/Navbar';
 import Test from './components/test/Test';
 import Home from './views/Home';
@@ -21,10 +22,14 @@ function App() {
                     <Route path="/test">
                         <Test />
                     </Route>
+                    <Route path="/edit-lyrics">
+                        <LyricsEditor />
+                    </Route>
                     <Route path="/register">
                         <Register />
                     </Route>
-                    <Route path="/"> {/* Gotta keep home last */}
+                    <Route path="/">
+                        {/* Gotta keep home last */}
                         <Home />
                     </Route>
                 </Switch>
