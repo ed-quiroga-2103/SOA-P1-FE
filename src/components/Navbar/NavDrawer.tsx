@@ -1,5 +1,7 @@
 import {
     Button,
+    Stack,
+    Container,
     Drawer,
     DrawerBody,
     DrawerCloseButton,
@@ -7,9 +9,22 @@ import {
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
-    Input,
+    Flex,
+    Text,
+    Link,
+    Box,
+    Icon,
+    Center,
 } from '@chakra-ui/react';
+import { BiUser } from 'react-icons/bi';
+
+import { EditIcon } from '@chakra-ui/icons';
+
 import React, { FunctionComponent } from 'react';
+import { Cookies } from 'react-cookie';
+import OnDrawerBody from './OnDrawerBody';
+import OffDrawerBody from './OffDrawerBody';
+import { useHistory } from 'react-router-dom';
 
 interface NavDrawerProps {
     isOpen: boolean;
@@ -22,7 +37,16 @@ const NavDrawer: FunctionComponent<NavDrawerProps> = ({
     onOpen,
     onClose,
 }) => {
+    const history = useHistory();
+
     const btnRef = React.useRef();
+
+    let logged = false;
+
+    const cookies = new Cookies();
+    if (cookies.get('mochi')) {
+        logged = true;
+    }
 
     return (
         <>
@@ -35,18 +59,46 @@ const NavDrawer: FunctionComponent<NavDrawerProps> = ({
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Create your account</DrawerHeader>
+                    <DrawerHeader color="white" bg="#3B55CE">
+                        Karaoke App
+                    </DrawerHeader>
 
-                    <DrawerBody>
-                        <Input placeholder="Type here..." />
+                    <DrawerBody color="white" padding="0" bg="#3B55CE">
+                        {logged ? (
+                            <OnDrawerBody action={onClose} />
+                        ) : (
+                            <OffDrawerBody action={onClose} />
+                        )}
                     </DrawerBody>
 
-                    <DrawerFooter>
-                        <Button variant="outline" mr={3} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button colorScheme="blue">Save</Button>
-                    </DrawerFooter>
+                    {logged ? (
+                        <DrawerFooter color="white" bg="#3B55CE">
+                            <Button
+                                bg="#FF61BE"
+                                onClick={() => {
+                                    cookies.remove('mochi');
+                                    history.push('/');
+                                    window.location.reload();
+                                }}
+                            >
+                                Logout
+                            </Button>
+                        </DrawerFooter>
+                    ) : (
+                        <DrawerFooter color="white" bg="#3B55CE">
+                            <Button
+                                bg="#FF61BE"
+                                mr={4}
+                                onClick={() => {
+                                    onClose();
+                                    history.push('/login');
+                                }}
+                            >
+                                Sign in!
+                            </Button>
+                            <Button bg="#FF61BE">Sing up!</Button>
+                        </DrawerFooter>
+                    )}
                 </DrawerContent>
             </Drawer>
         </>

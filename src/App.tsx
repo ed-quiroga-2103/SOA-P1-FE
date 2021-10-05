@@ -9,6 +9,7 @@ import Test from './components/test/Test';
 import Home from './views/Home';
 import Login from './views/Login';
 import Register from './views/Register';
+import Profile from './views/Profile';
 
 function App() {
     return (
@@ -21,6 +22,9 @@ function App() {
                     </Route>
                     <Route path="/test">
                         <Test />
+                    </Route>
+                    <Route path="/my-profile">
+                        <Profile />
                     </Route>
                     <Route path="/edit-lyrics">
                         <LyricsEditor />

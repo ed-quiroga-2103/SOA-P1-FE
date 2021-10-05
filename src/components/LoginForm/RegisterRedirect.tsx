@@ -12,11 +12,15 @@ const RegisterRedirect: FunctionComponent<RegisterRedirectProps> = () => {
                     <Text margin="15px" fontSize="xl">
                         You dont have an account?
                     </Text>
-                    <Button 
-                        bg="gray.200"
+                    <Button
+                        bg="#3B55CE"
+                        color="white"
                         onClick={() => {
                             history.push('/register');
-                        }}>Sing Up!</Button>
+                        }}
+                    >
+                        Sing Up!
+                    </Button>
                 </Stack>
             </Container>
         </>
