@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import auth from '../../lib/auth';
 import { login, logout } from '../../redux/logged';
 import RegisterForm from '../RegisterForm/RegisterForm';
+import SongList from '../SongList/SongList';
 interface TestProps {}
 
 const Test: FC<TestProps> = () => {
@@ -78,6 +79,7 @@ const Test: FC<TestProps> = () => {
                 </Button>
             </FormControl>
             <RegisterForm></RegisterForm>
+            <SongList></SongList>
             <br />
             <p>{status < 300 ? `Nice` : 'Error'}</p>
             <p>{token ? `Token: ${token}` : 'Not logged'}</p>
