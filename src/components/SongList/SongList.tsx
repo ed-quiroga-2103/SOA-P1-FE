@@ -40,13 +40,13 @@ const SongList: FunctionComponent<SongListProps> = () => {
         <>
             <Container maxW="wxl">
                 <Flex boxSize="wxl">
-                    <Text p="4" fontSize="3xl" color="#FF61BE"> SONGS </Text>
+                    <Text p="4" fontSize="3xl" color="#FE53BB"> SONGS </Text>
                     <Spacer />
                     <Input maxWidth= '250px' placeholder="Search"/>
                         
                 </Flex>
                 <hr/>
-                <Box padding="4" bg="#FF61BE" maxW="wxl">
+                <Box padding="4" bg="#f5d300" maxW="wxl">
                     <Flex justify='right' mb="7px">
                         <Button 
                             size="sm"
@@ -57,7 +57,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                     </Flex>
                     <List>
                         {songs.map((song)=> (
-                            <ListItem mt='3px' bg="#3B55CE" borderRadius="md" height='43px' color="#FFFFFF" key={song}>
+                            <ListItem mt='3px' bg="#09fbd3" borderRadius="md" height='43px' color="#FE53BB" key={song}>
                                 <Grid templateColumns="repeat(20,1fr)" gap = {6}>
                                     <GridItem ml = '10px' mt="5px">
                                         <ListIcon/ >
@@ -78,7 +78,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                                     size="sm" 
                                                     mr="3px"
                                                     variant="ghost" 
-                                                    color="white"
+                                                    color="FE53BB"
                                                     
                                                     rightIcon = {<MdDelete/>}
                                                     onClick={()=> deleteSong(song)}
