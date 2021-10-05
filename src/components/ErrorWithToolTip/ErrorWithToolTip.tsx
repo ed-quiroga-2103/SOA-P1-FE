@@ -1,15 +1,6 @@
-import { FC } from 'react';
-import {
-    Button,
-    Container,
-    Flex,
-    Grid,
-    GridItem,
-    Text,
-    Textarea,
-    Tooltip,
-} from '@chakra-ui/react';
 import { QuestionIcon } from '@chakra-ui/icons';
+import { Flex, Text, Tooltip } from '@chakra-ui/react';
+import { FC } from 'react';
 
 interface ErrorWithToolTipProps {
     error: string;

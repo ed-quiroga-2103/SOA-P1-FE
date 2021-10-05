@@ -1,18 +1,15 @@
-import { FC, useState } from 'react';
 import {
     Button,
-    Center,
     Flex,
     FormControl,
-    FormHelperText,
     FormLabel,
     Input,
     Spacer,
     Stack,
     Switch,
 } from '@chakra-ui/react';
+import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import auth from '../../lib/auth';
 interface UserEditorProps {}
 
 const UserEditor: FC<UserEditorProps> = () => {

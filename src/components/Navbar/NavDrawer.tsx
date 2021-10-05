@@ -1,7 +1,5 @@
 import {
     Button,
-    Stack,
-    Container,
     Drawer,
     DrawerBody,
     DrawerCloseButton,
@@ -9,22 +7,12 @@ import {
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
-    Flex,
-    Text,
-    Link,
-    Box,
-    Icon,
-    Center,
 } from '@chakra-ui/react';
-import { BiUser } from 'react-icons/bi';
-
-import { EditIcon } from '@chakra-ui/icons';
-
 import React, { FunctionComponent } from 'react';
 import { Cookies } from 'react-cookie';
-import OnDrawerBody from './OnDrawerBody';
-import OffDrawerBody from './OffDrawerBody';
 import { useHistory } from 'react-router-dom';
+import OffDrawerBody from './OffDrawerBody';
+import OnDrawerBody from './OnDrawerBody';
 
 interface NavDrawerProps {
     isOpen: boolean;

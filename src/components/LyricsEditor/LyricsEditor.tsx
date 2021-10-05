@@ -6,16 +6,14 @@ import {
     GridItem,
     Text,
     Textarea,
-    Tooltip,
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
-import { QuestionIcon } from '@chakra-ui/icons';
-import handleLRCData from '../../utils/handleLRCData';
-import ErrorWithToolTip from '../ErrorWithToolTip/ErrorWithToolTip';
-import createLRCData from '../../utils/createLRCData';
-import { getLyrics, setLyrics } from '../../redux/song';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { getLyrics, setLyrics } from '../../redux/song';
+import createLRCData from '../../utils/createLRCData';
+import handleLRCData from '../../utils/handleLRCData';
+import ErrorWithToolTip from '../ErrorWithToolTip/ErrorWithToolTip';
 
 interface LyricsEditorProps {
     data?: string;

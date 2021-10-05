@@ -1,26 +1,17 @@
-import { FC } from 'react';
+import { EditIcon } from '@chakra-ui/icons';
 import {
-    Button,
-    Stack,
-    Container,
-    Drawer,
-    DrawerBody,
-    DrawerCloseButton,
-    DrawerContent,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerOverlay,
-    Flex,
-    Text,
-    Link,
     Box,
-    Icon,
     Center,
+    Container,
+    Flex,
+    Icon,
+    Link,
+    Stack,
+    Text,
 } from '@chakra-ui/react';
+import { FC } from 'react';
 import { BiUser } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
-
-import { EditIcon } from '@chakra-ui/icons';
 
 interface OnDrawerBodyProps {
     action: () => void;
