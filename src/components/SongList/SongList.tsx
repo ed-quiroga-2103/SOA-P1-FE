@@ -1,4 +1,5 @@
 import {
+
     Box, Container,
     Flex, Grid, IconButton,
     GridItem, Select, Input, List, ListIcon, ListItem, Spacer, Text, Button,
@@ -50,23 +51,23 @@ const SongList: FunctionComponent<SongListProps> = () => {
         setSongs(data.slice(a,b))
     }
 
-    function play(algo){
-        console.log("Song is playing: "+ algo)
+    function play(algo) {
+        console.log('Song is playing: ' + algo);
     }
 
-    function deleteSong(algo){
-        console.log("Deleting song: "+ algo)
+    function deleteSong(algo) {
+        console.log('Deleting song: ' + algo);
     }
 
-    function editSong(algo){
-        console.log("Editting song: "+ algo)
+    function editSong(algo) {
+        console.log('Editting song: ' + algo);
     }
 
-    function addSong(){
-        console.log("we are adding a new song")
+    function addSong() {
+        console.log('we are adding a new song');
     }
 
-    return(
+    return (
         <>
             <Container maxW="wxl">
                 <Flex boxSize="wxl">
@@ -89,9 +90,10 @@ const SongList: FunctionComponent<SongListProps> = () => {
                     <Flex justify='right' mb="7px">
                         <Button 
                             size="sm"
-                            rightIcon= {<MdAdd/>} 
-                            onClick= {()=> addSong()}
-                            >Add 
+                            rightIcon={<MdAdd />}
+                            onClick={() => addSong()}
+                        >
+                            Add
                         </Button>
                     </Flex>
                     <List>
@@ -100,10 +102,12 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                 <Grid templateColumns="repeat(20,1fr)" gap = {6}>
                                     <GridItem ml = '10px' mt="5px">
                                         <ListIcon/ >
+
                                     </GridItem>
-                                    <GridItem colStart={2} colEnd = {15} mt="5px">
+                                    <GridItem colStart={2} colEnd={15} mt="5px">
                                         <Text mt="2px">{song}</Text>
                                     </GridItem>
+
                                     <GridItem colStart={18} mt = "2px" ml ="120px">
                                         <IconButton aria-label='playButton' variant='ghost' size="md" icon={<MdPlayArrow/>} onClick ={() => play(song)} />
                                     </GridItem>
@@ -117,33 +121,40 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                                     aria-label='deleteButton' 
                                                     size="md" 
                                                     mr="3px"
-                                                    variant="ghost" 
+                                                    variant="ghost"
                                                     color="FE53BB"
+
                                                     
                                                     icon = {<MdDelete/>}
                                                     onClick={()=> deleteSong(song)}
                                                     > 
                                                 </IconButton>
+
                                             </PopoverTrigger>
                                             <Portal>
                                                 <PopoverContent>
-                                                <PopoverArrow />
-                                                <PopoverHeader>Header</PopoverHeader>
-                                                <PopoverCloseButton />
-                                                <PopoverBody>
-                                                    <Button colorScheme="blue">Button</Button>
-                                                </PopoverBody>
-                                                <PopoverFooter>This is the footer</PopoverFooter>
+                                                    <PopoverArrow />
+                                                    <PopoverHeader>
+                                                        Header
+                                                    </PopoverHeader>
+                                                    <PopoverCloseButton />
+                                                    <PopoverBody>
+                                                        <Button colorScheme="blue">
+                                                            Button
+                                                        </Button>
+                                                    </PopoverBody>
+                                                    <PopoverFooter>
+                                                        This is the footer
+                                                    </PopoverFooter>
                                                 </PopoverContent>
                                             </Portal>
                                         </Popover>
                                     </GridItem>
-
                                 </Grid>
-                                
                             </ListItem>
                         ))}
                     </List>
+
                     <Flex justify="right" mt="10px" >
                         <IconButton aria-label = 'ArrowLeft' variant='ghost' as={MdArrowLeft} boxSize={8} color="#35212A" mt = '2px' />
                             {comp}
@@ -152,6 +163,6 @@ const SongList: FunctionComponent<SongListProps> = () => {
                 </Box>
             </Container>
         </>
-    )
+    );
 };
 export default SongList;

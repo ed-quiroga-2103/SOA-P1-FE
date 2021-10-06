@@ -4,9 +4,6 @@ import { useHistory } from 'react-router-dom';
 interface LogInRedirectProps {}
 
 const LogInRedirect: FunctionComponent<LogInRedirectProps> = () => {
-    function testFunct(){
-        console.log("TEST IS SUCCESSFUL")
-    }
     const history = useHistory();
     return (
         <>
@@ -15,11 +12,14 @@ const LogInRedirect: FunctionComponent<LogInRedirectProps> = () => {
                     <Text margin="15px" fontSize="xl">
                         Already have an account?
                     </Text>
-                    <Button 
+                    <Button
                         bg="gray.200"
                         onClick={() => {
                             history.push('/login');
-                        }}>Log in!</Button>
+                        }}
+                    >
+                        Log in!
+                    </Button>
                 </Stack>
             </Container>
         </>

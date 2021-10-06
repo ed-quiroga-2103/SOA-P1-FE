@@ -9,20 +9,19 @@ import {
 } from '@chakra-ui/react';
 import { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import api from '../../lib/api';
 import auth from '../../lib/auth';
 import { login } from '../../redux/logged';
 
-
-interface RegisterFormProps{}
+interface RegisterFormProps {}
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
-
     const dispach = useDispatch();
-    const [name,setName] = useState('');
-    const [lastName,setLastName] = useState('');
-    const [email,setEmail] = useState('');
-    const [username,setUsername] = useState('');
-    const [password,setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleName = (event) => setName(event.target.value);
     const handleLastName = (event) => setLastName(event.target.value);
@@ -30,7 +29,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
     const handleUsername = (event) => setUsername(event.target.value);
     const handlePassword = (event) => setPassword(event.target.value);
 
-    return(
+    return (
         <>
             <Stack>
                 <FormControl id="lastName">
@@ -71,9 +70,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
                         onChange={handleUsername}
                         type="text"
                     />
-                    <FormHelperText>
-                        Time to be creative
-                    </FormHelperText>
+                    <FormHelperText>Time to be creative</FormHelperText>
                 </FormControl>
                 <FormControl id="Password">
                     <FormLabel color="gray.200">Password</FormLabel>
@@ -89,16 +86,18 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
                             margin="10px"
                             bg="gray.200"
                             onClick={async () => {
-                                const data = await auth.register({
-                                    name,
-                                    lastName,
-                                    email,
-                                    username,
-                                    password,
-                                });
-                                if (data.accessToken) {
-                                    dispach(login());
-                                }
+                                // const data = await auth.register({
+                                //     name,
+                                //     lastName,
+                                //     email,
+                                //     username,
+                                //     password,
+                                // });
+                                await api.postUser();
+                                console.log('posted');
+                                // if (data.accessToken) {
+                                //     dispach(login());
+                                // }
                             }}
                         >
                             Sign In
