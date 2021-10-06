@@ -8,7 +8,7 @@ const Songs: FunctionComponent<SongsProps> = () => {
     const history = useHistory();
     return (
         <>
-            <SongList> </SongList>
+            <SongList songs={[]}> </SongList>
         </>
     );
 };

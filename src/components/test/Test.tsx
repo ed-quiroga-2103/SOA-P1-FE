@@ -79,7 +79,7 @@ const Test: FC<TestProps> = () => {
                 </Button>
             </FormControl>
             <RegisterForm></RegisterForm>
-            <SongList></SongList>
+            
             <br />
             <p>{status < 300 ? `Nice` : 'Error'}</p>
             <p>{token ? `Token: ${token}` : 'Not logged'}</p>
