@@ -1,117 +1,190 @@
 import {
-    Box, Container,
-    Flex, Grid,
-    GridItem, Icon, Input, List, ListIcon, ListItem, Spacer, Text, Button,
-    Popover, PopoverTrigger, Portal, PopoverContent, PopoverHeader, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverFooter
+    Box,
+    Container,
+    Flex,
+    Grid,
+    GridItem,
+    Icon,
+    Input,
+    List,
+    ListIcon,
+    ListItem,
+    Spacer,
+    Text,
+    Button,
+    Popover,
+    PopoverTrigger,
+    Portal,
+    PopoverContent,
+    PopoverHeader,
+    PopoverArrow,
+    PopoverBody,
+    PopoverCloseButton,
+    PopoverFooter,
+    IconButton,
 } from '@chakra-ui/react';
 import { FunctionComponent } from 'react';
-import { MdDelete, MdEdit, MdPlayArrow, MdAdd, MdArrowRight, MdArrowLeft } from "react-icons/md";
+import {
+    MdDelete,
+    MdEdit,
+    MdPlayArrow,
+    MdAdd,
+    MdArrowRight,
+    MdArrowLeft,
+} from 'react-icons/md';
 
-
-interface SongListProps{}
+interface SongListProps {}
 
 const SongList: FunctionComponent<SongListProps> = () => {
-    const songs = ['Bohemian Rhapsody', 'Nunca es Suficiente', 'If I aint got you']
+    const songs = [
+        'Bohemian Rhapsody',
+        'Nunca es Suficiente',
+        'If I aint got you',
+    ];
     var pages = 3;
     const comp = [];
-    
-    for (let i = 0; i <pages; i++){
-        var j = i+1;
-        comp.push(<Button key={i} size="sm" mt="4px" mr="3px" variant='ghost' color="#35212A"> {j} </Button>)
+
+    for (let i = 0; i < pages; i++) {
+        var j = i + 1;
+        comp.push(
+            <Button
+                key={i}
+                size="sm"
+                mt="4px"
+                mr="3px"
+                variant="ghost"
+                color="#35212A"
+            >
+                {' '}
+                {j}{' '}
+            </Button>
+        );
     }
 
-    function play(algo){
-        console.log("Song is playing: "+ algo)
+    function play(algo) {
+        console.log('Song is playing: ' + algo);
     }
 
-    function deleteSong(algo){
-        console.log("Deleting song: "+ algo)
+    function deleteSong(algo) {
+        console.log('Deleting song: ' + algo);
     }
 
-    function editSong(algo){
-        console.log("Editting song: "+ algo)
+    function editSong(algo) {
+        console.log('Editting song: ' + algo);
     }
 
-    function addSong(){
-        console.log("we are adding a new song")
+    function addSong() {
+        console.log('we are adding a new song');
     }
 
-    return(
+    return (
         <>
             <Container maxW="wxl">
                 <Flex boxSize="wxl">
-                    <Text p="4" fontSize="3xl" color="#FE53BB"> SONGS </Text>
+                    <Text p="4" fontSize="3xl" color="#FE53BB">
+                        {' '}
+                        SONGS{' '}
+                    </Text>
                     <Spacer />
-                    <Input maxWidth= '250px' placeholder="Search"/>
-                        
+                    <Input maxWidth="250px" placeholder="Search" />
                 </Flex>
-                <hr/>
-                <Box padding="4" bg="#f5d300" maxW="wxl">
-                    <Flex justify='right' mb="7px">
-                        <Button 
+                <hr />
+                <Box padding="4" bg="#3B55CE" maxW="wxl">
+                    <Flex justify="right" mb="7px">
+                        <Button
                             size="sm"
-                            rightIcon= {<MdAdd/>} 
-                            onClick= {()=> addSong()}
-                            >Add 
+                            rightIcon={<MdAdd />}
+                            onClick={() => addSong()}
+                        >
+                            Add
                         </Button>
                     </Flex>
                     <List>
-                        {songs.map((song)=> (
-                            <ListItem mt='3px' bg="#09fbd3" borderRadius="md" height='43px' color="#FE53BB" key={song}>
-                                <Grid templateColumns="repeat(20,1fr)" gap = {6}>
-                                    <GridItem ml = '10px' mt="5px">
-                                        <ListIcon/ >
+                        {songs.map((song) => (
+                            <ListItem
+                                mt="3px"
+                                bg="#09fbd3"
+                                borderRadius="md"
+                                height="43px"
+                                color="#FE53BB"
+                                key={song}
+                            >
+                                <Grid templateColumns="repeat(20,1fr)" gap={6}>
+                                    <GridItem ml="10px" mt="5px">
+                                        <ListIcon />
                                     </GridItem>
-                                    <GridItem colStart={2} colEnd = {15} mt="5px">
+                                    <GridItem colStart={2} colEnd={15} mt="5px">
                                         <Text mt="2px">{song}</Text>
                                     </GridItem>
-                                    <GridItem colStart={18} mt = "5px" ml ="120px">
-                                        <Icon as={MdPlayArrow} onClick ={() => play(song)} />
+                                    <GridItem colStart={18} mt="5px" ml="120px">
+                                        <Icon
+                                            as={MdPlayArrow}
+                                            onClick={() => play(song)}
+                                        />
                                     </GridItem>
-                                    <GridItem colStart={19} mt = "5px" ml ="50px">
-                                        <Icon as={MdEdit} onClick ={() => editSong(song)}/>
+                                    <GridItem colStart={19} mt="5px" ml="50px">
+                                        <Icon
+                                            as={MdEdit}
+                                            onClick={() => editSong(song)}
+                                        />
                                     </GridItem>
-                                    <GridItem colStart={20} mt = "5px" ml ="30px">
+                                    <GridItem colStart={20} mt="5px" ml="30px">
                                         <Popover>
                                             <PopoverTrigger>
-                                                <Button 
-                                                    size="sm" 
+                                                <Button
+                                                    size="sm"
                                                     mr="3px"
-                                                    variant="ghost" 
+                                                    variant="ghost"
                                                     color="FE53BB"
-                                                    
-                                                    rightIcon = {<MdDelete/>}
-                                                    onClick={()=> deleteSong(song)}
-                                                    > 
-                                                </Button>
+                                                    rightIcon={<MdDelete />}
+                                                    onClick={() =>
+                                                        deleteSong(song)
+                                                    }
+                                                ></Button>
                                             </PopoverTrigger>
                                             <Portal>
                                                 <PopoverContent>
-                                                <PopoverArrow />
-                                                <PopoverHeader>Header</PopoverHeader>
-                                                <PopoverCloseButton />
-                                                <PopoverBody>
-                                                    <Button colorScheme="blue">Button</Button>
-                                                </PopoverBody>
-                                                <PopoverFooter>This is the footer</PopoverFooter>
+                                                    <PopoverArrow />
+                                                    <PopoverHeader>
+                                                        Header
+                                                    </PopoverHeader>
+                                                    <PopoverCloseButton />
+                                                    <PopoverBody>
+                                                        <Button colorScheme="blue">
+                                                            Button
+                                                        </Button>
+                                                    </PopoverBody>
+                                                    <PopoverFooter>
+                                                        This is the footer
+                                                    </PopoverFooter>
                                                 </PopoverContent>
                                             </Portal>
                                         </Popover>
                                     </GridItem>
-
                                 </Grid>
-                                
                             </ListItem>
                         ))}
                     </List>
-                    <Flex justify="right" mt="10px" >
-                        <Icon as={MdArrowLeft} boxSize={10} color="#35212A" />
-                            {comp}
-                        <Icon as={MdArrowRight} boxSize={10} color="#35212A" />
+                    <Flex justify="right" mt="10px">
+                        <IconButton
+                            icon={<MdArrowLeft />}
+                            boxSize={10}
+                            color="#35212A"
+                            aria-label="pageLeft"
+                            variant="ghost"
+                        />
+                        {comp}
+                        <IconButton
+                            variant="ghost"
+                            icon={<MdArrowRight />}
+                            boxSize={10}
+                            color="#35212A"
+                            aria-label="pageRight"
+                        />
                     </Flex>
                 </Box>
             </Container>
         </>
-    )
+    );
 };
 export default SongList;

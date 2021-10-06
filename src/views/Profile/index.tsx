@@ -11,7 +11,7 @@ const Landing: FunctionComponent<LandingProps> = () => {
 
     const mochi = new Cookies().get('mochi');
 
-    if (auth.isTokenExpired(mochi.accessToken)) {
+    if (!mochi || auth.isTokenExpired(mochi.accessToken)) {
         history.push('/login');
     }
     return (

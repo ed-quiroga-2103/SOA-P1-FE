@@ -1,7 +1,6 @@
 import decodeToken from './decodeToken';
 
-const isTokenExpired = async (token) => {
-    console.log(token);
+const isTokenExpired = (token) => {
     if (!token) return true;
 
     const decoded = decodeToken(token);

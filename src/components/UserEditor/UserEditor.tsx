@@ -7,12 +7,16 @@ import {
     Spacer,
     Stack,
     Switch,
+    useDisclosure,
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PasswordEditor from './PasswordEditor';
 interface UserEditorProps {}
 
 const UserEditor: FC<UserEditorProps> = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     const dispach = useDispatch();
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -57,10 +61,13 @@ const UserEditor: FC<UserEditorProps> = () => {
             </FormControl>
             <br />
             <Flex justify="left">
-                <Button colorScheme="red">Change Password</Button>
+                <Button onClick={onOpen} colorScheme="red">
+                    Change Password
+                </Button>
                 <Spacer />
                 <Button>Confirm changes!</Button>
             </Flex>
+            <PasswordEditor isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
         </Stack>
     );
 };
