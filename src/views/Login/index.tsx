@@ -10,17 +10,17 @@ const Login: FunctionComponent<LoginProps> = () => {
         <Center>
             <Grid
                 padding="10px"
-                bg="gray.900"
+                bg="#3B55CE"
                 templateColumns="repeat(2, 1fr)"
                 gap={2}
                 borderRadius="10px"
             >
-                <GridItem paddingTop="10px" colSpan={1} bg="gray.900">
+                <GridItem paddingTop="10px" colSpan={1} bg="#3B55CE">
                     <LoginForm />
                 </GridItem>
                 <GridItem
                     colSpan={1}
-                    bg="white"
+                    bg="#FFD3F3"
                     borderTopRightRadius="5px"
                     borderBottomRightRadius="5px"
                     paddingTop="43px"

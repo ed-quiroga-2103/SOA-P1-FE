@@ -11,20 +11,10 @@ import auth from '../../lib/auth';
 import { login, logout } from '../../redux/logged';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import SongList from '../SongList/SongList';
+
 interface TestProps {}
 
 const Test: FC<TestProps> = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    const [token, setToken] = useState(undefined);
-    const [status, setStatus] = useState(200);
-
-    const handleEmail = (event) => setUsername(event.target.value);
-    const handlePassword = (event) => setPassword(event.target.value);
-
-    const dispach = useDispatch();
-
     return (
         <>
             <Text fontSize="4xl">KeyCloak Test</Text>
@@ -85,6 +75,7 @@ const Test: FC<TestProps> = () => {
             <p>{token ? `Token: ${token}` : 'Not logged'}</p>
 
             <br />
+
         </>
     );
 };

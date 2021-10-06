@@ -11,10 +11,13 @@ import { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import auth from '../../lib/auth';
 import { login } from '../../redux/logged';
+import { useHistory } from 'react-router-dom';
 
 interface LoginFormProps {}
 
 const LoginForm: FunctionComponent<LoginFormProps> = () => {
+    const history = useHistory();
+
     const dispach = useDispatch();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -25,19 +28,19 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         <>
             <Stack>
                 <FormControl id="Username">
-                    <FormLabel color="gray.200">Username</FormLabel>
+                    <FormLabel color="white">Username</FormLabel>
                     <Input
                         bg="gray.200"
                         value={username}
                         onChange={handleEmail}
                         type="text"
                     />
-                    <FormHelperText>
+                    <FormHelperText color="white">
                         We'll never share your email.
                     </FormHelperText>
                 </FormControl>
                 <FormControl id="Password">
-                    <FormLabel color="gray.200">Password</FormLabel>
+                    <FormLabel color="white">Password</FormLabel>
                     <Input
                         bg="gray.200"
                         value={password}
@@ -48,7 +51,8 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                     <Center>
                         <Button
                             margin="10px"
-                            bg="gray.200"
+                            color="white"
+                            bg="#FF61BE"
                             onClick={async () => {
                                 const data = await auth.login({
                                     username,
@@ -56,6 +60,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                                 });
                                 if (data.accessToken) {
                                     dispach(login());
+                                    history.push('/');
                                 }
                             }}
                         >

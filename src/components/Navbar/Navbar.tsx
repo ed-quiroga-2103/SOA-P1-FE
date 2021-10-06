@@ -24,7 +24,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     return (
         <>
             <NavDrawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
-            <Grid templateColumns="repeat(3,1fr)" bg="gray.900" padding="10px">
+            <Grid templateColumns="repeat(3,1fr)" bg="#3B55CE" padding="10px">
                 <GridItem colSpan={1}>
                     <Flex h="100%">
                         <IconButton
