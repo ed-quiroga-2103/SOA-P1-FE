@@ -15,7 +15,7 @@ const Songs: FunctionComponent<SongsProps> = () => {
     }
     return (
         <>
-            <SongList> </SongList>
+            <SongList songs={[]}> </SongList>
         </>
     );
 };
