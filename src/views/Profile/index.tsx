@@ -10,8 +10,10 @@ const Landing: FunctionComponent<LandingProps> = () => {
     const history = useHistory();
 
     const mochi = new Cookies().get('mochi');
-
-    if (!mochi || auth.isTokenExpired(mochi.accessToken)) {
+    if (!mochi) {
+        history.push('/login');
+    } else if (auth.isTokenExpired(mochi.accessToken)) {
+        new Cookies().remove('mochi');
         history.push('/login');
     }
     return (
