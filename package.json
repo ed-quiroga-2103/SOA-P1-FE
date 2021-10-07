@@ -60,7 +60,8 @@
         "whitelist": [
             "KEYCLOAK_URL",
             "KEYCLOAK_ADMIN",
-            "KEYCLOAK_PASSWORD"
+            "KEYCLOAK_PASSWORD",
+            "API_URL"
         ]
     }
 }

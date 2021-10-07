@@ -1,4 +1,4 @@
-import postUser from './postUser';
+import postUser from './users/postUser';
 
 export default {
     postUser,

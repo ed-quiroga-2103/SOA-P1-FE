@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import '@fontsource/alata';
 import '@fontsource/roboto';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -12,7 +12,7 @@ import Login from './views/Login';
 import Register from './views/Register';
 import Songs from './views/Songs';
 import Profile from './views/Profile';
-
+import SongEditor from './components/SongEditor/SongEditor';
 
 function App() {
     return (
@@ -28,6 +28,16 @@ function App() {
                     </Route>
                     <Route path="/my-profile">
                         <Profile />
+                    </Route>
+                    <Route path="/create-song">
+                        <Container>
+                            <SongEditor />
+                        </Container>
+                    </Route>
+                    <Route path="/edit-song">
+                        <Container>
+                            <SongEditor editing={true} />
+                        </Container>
                     </Route>
                     <Route path="/edit-lyrics">
                         <LyricsEditor />

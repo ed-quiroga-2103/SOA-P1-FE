@@ -4,10 +4,10 @@ import { RootState } from '../app/store';
 export const slice = createSlice({
     name: 'song',
     initialState: {
-        name: 'Holder name',
-        artist: 'Holder artist',
-        album: 'Holder album',
-        lyrics: '[00:01:00]This\n[00:02:00]are\n[00:03:00]lyrics\n[00:04:00]from\n[00:05:00]a\n[00:06:00]song',
+        name: '',
+        artist: '',
+        album: '',
+        lyrics: '',
     },
     reducers: {
         setName: (state, values) => {

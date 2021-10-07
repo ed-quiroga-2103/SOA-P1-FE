@@ -84,7 +84,15 @@ const NavDrawer: FunctionComponent<NavDrawerProps> = ({
                             >
                                 Sign in!
                             </Button>
-                            <Button bg="#FF61BE">Sing up!</Button>
+                            <Button
+                                bg="#FF61BE"
+                                onClick={() => {
+                                    onClose();
+                                    history.push('/register');
+                                }}
+                            >
+                                Sing up!
+                            </Button>
                         </DrawerFooter>
                     )}
                 </DrawerContent>

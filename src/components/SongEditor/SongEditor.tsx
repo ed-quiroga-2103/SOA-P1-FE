@@ -14,9 +14,11 @@ import { useHistory } from 'react-router-dom';
 
 import { getAlbum, getArtist, getLyrics, getName } from '../../redux/song';
 
-interface SongEditorProps {}
+interface SongEditorProps {
+    editing?: boolean;
+}
 
-const SongEditor: FC<SongEditorProps> = () => {
+const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     const dispatch = useDispatch();
     const reduxName = useSelector(getName);
     const reduxArtist = useSelector(getArtist);
@@ -50,6 +52,15 @@ const SongEditor: FC<SongEditorProps> = () => {
         console.log(url);
         console.log(reader.result);
         setFile('');
+    };
+
+    const confirmChanges = () => {
+        if (editing) {
+            console.log('put song');
+        } else {
+            console.log('post song');
+        }
+        history.push('/songs');
     };
 
     return (
@@ -111,7 +122,7 @@ const SongEditor: FC<SongEditorProps> = () => {
                     <Image boxSize="100px" objectFit="cover" src={file[0]} />
                 ) : undefined}
                 <Flex justify="right">
-                    <Button>Confirm changes!</Button>
+                    <Button onClick={confirmChanges}>Confirm changes!</Button>
                 </Flex>
             </Stack>
         </>
