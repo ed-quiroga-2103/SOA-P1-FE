@@ -84,7 +84,8 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
                     <Center>
                         <Button
                             margin="10px"
-                            bg="gray.200"
+                            bg="#FF61BE"
+                            color="white"
                             onClick={async () => {
                                 // const data = await auth.register({
                                 //     name,
@@ -100,7 +101,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
                                 // }
                             }}
                         >
-                            Sign In
+                            Sign Up!
                         </Button>
                     </Center>
                 </FormControl>

@@ -13,7 +13,8 @@ const LogInRedirect: FunctionComponent<LogInRedirectProps> = () => {
                         Already have an account?
                     </Text>
                     <Button
-                        bg="gray.200"
+                        bg="#3B55CE"
+                        color="white"
                         onClick={() => {
                             history.push('/login');
                         }}
