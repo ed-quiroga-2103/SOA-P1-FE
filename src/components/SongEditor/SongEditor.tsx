@@ -11,6 +11,7 @@ import {
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import api from '../../lib/api';
 
 import { getAlbum, getArtist, getLyrics, getName } from '../../redux/song';
 
@@ -57,8 +58,20 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     const confirmChanges = () => {
         if (editing) {
             console.log('put song');
+            api.putSong({
+                name: name,
+                artist: artist,
+                album: album,
+                lyrics: lyrics
+            })
         } else {
             console.log('post song');
+            api.postSong({
+                name: name,
+                artist: artist,
+                album: album,
+                lyrics: lyrics
+            })
         }
         history.push('/songs');
     };

@@ -44,6 +44,14 @@ interface SongListProps {
 const SongList: FunctionComponent<SongListProps> = () => {
     const history = useHistory();
 
+    
+    const [request, setRequest] = useState(null);
+    const [searchCriteria, setSearchCriteria] = useState('Song');
+    const [searchValue, setSearchValue] = useState('');
+    
+    const handleSearchCriteria = (event) => setSearchCriteria(event.target.value);
+    const handleSearchValue = (event) => setSearchValue(event.target.value);
+    
     const data = [
         'Bohemian Rhapsody',
         'Nunca es Suficiente',
@@ -58,8 +66,13 @@ const SongList: FunctionComponent<SongListProps> = () => {
         'Una Nota',
     ]; /* api.getSongs() */
 
-    const [request, setRequest] = useState(null);
+    const pageSize = 10;
+    let size = data.length;
     
+    var pages = Math.ceil(size / pageSize);
+    const comp = [];
+    const [songs, setSongs] = useState([]);
+
     useEffect(()=>{
         async function getData(){
             const request = await api.getSongs();
@@ -73,21 +86,14 @@ const SongList: FunctionComponent<SongListProps> = () => {
         var key=e.keyCode || e.which;
         if (key==13){
             console.log("capturing enter")
+            console.log(searchValue)
         }
     }
     
-    function algo(){
-        request.data.forEach(element => {
-            console.log(element.name)
-        });
+    function searchBy(){
+        console.log(searchCriteria)
+        console.log(searchValue)
     }
-    
-    const pageSize = 10;
-    let size = data.length;
-    console.log(size);
-    var pages = Math.ceil(size / pageSize);
-    const comp = [];
-    const [songs, setSongs] = useState([]);
 
     for (let i = 0; i < pages; i++) {
         var j = String(i + 1);
@@ -120,10 +126,12 @@ const SongList: FunctionComponent<SongListProps> = () => {
 
     function deleteSong(algo) {
         console.log('Deleting song: ' + algo);
+        api.deleteSong("615f6456882c67dc5dcfad00");
     }
 
     function editSong(algo) {
         console.log('Editting song: ' + algo);
+        history.push('/edit-song');
     }
 
     function addSong() {
@@ -142,14 +150,17 @@ const SongList: FunctionComponent<SongListProps> = () => {
                     <Spacer />
                     <Box w="15%" mb="3px">
                         <Input
+                            id='searchInput'
                             mt="5px"
                             maxWidth="100%"
                             placeholder="Search"
                             mb="3px"
                             onKeyPress={handleEnter}
+                            onChange={handleSearchValue}
                         />
                         <Flex>
-                            <Select placeholder="Song" mr="3px">
+                            <Select defaultValue={searchCriteria} mr="3px" onChange={handleSearchCriteria}>
+                                <option value="Song"> Song </option>
                                 <option value="Artist"> Artist </option>
                                 <option value="Album"> Album </option>
                                 <option value="Lyrics"> Lyrics </option>
@@ -157,7 +168,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                             <IconButton
                                 aria-label="searchButton"
                                 icon={<MdSearch />}
-                                onClick={algo}
+                                onClick={searchBy}
                             />
                         </Flex>
                     </Box>
@@ -219,9 +230,6 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                                     variant="ghost"
                                                     color="FE53BB"
                                                     icon={<MdDelete />}
-                                                    onClick={() =>
-                                                        deleteSong(song)
-                                                    }
                                                 ></IconButton>
                                             </PopoverTrigger>
                                             <Portal>
@@ -232,8 +240,12 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                                     </PopoverHeader>
                                                     <PopoverCloseButton />
                                                     <PopoverBody>
-                                                        <Button colorScheme="blue">
-                                                            Button
+                                                        <Button 
+                                                            colorScheme="blue"
+                                                            onClick={() =>
+                                                                deleteSong(song)   //This should take the id of the song thats about to be deleted.
+                                                            }
+                                                            >Confirm
                                                         </Button>
                                                     </PopoverBody>
                                                     <PopoverFooter justifyContent='center'>
