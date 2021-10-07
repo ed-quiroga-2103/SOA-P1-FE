@@ -23,7 +23,7 @@ import {
     Spacer,
     Text,
 } from '@chakra-ui/react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState, useEffect } from 'react';
 import {
     MdAdd,
     MdArrowLeft,
@@ -34,10 +34,12 @@ import {
     MdSearch,
 } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
+import api from '../../lib/api';
 
 interface SongListProps {
     songs?: string[];
 }
+
 
 const SongList: FunctionComponent<SongListProps> = () => {
     const history = useHistory();
@@ -55,6 +57,31 @@ const SongList: FunctionComponent<SongListProps> = () => {
         'pegame tu vicio',
         'Una Nota',
     ]; /* api.getSongs() */
+
+    const [request, setRequest] = useState(null);
+    
+    useEffect(()=>{
+        async function getData(){
+            const request = await api.getSongs();
+            setRequest(request);
+        }
+        getData();
+    },[]
+    )
+
+    function handleEnter(e){
+        var key=e.keyCode || e.which;
+        if (key==13){
+            console.log("capturing enter")
+        }
+    }
+    
+    function algo(){
+        request.data.forEach(element => {
+            console.log(element.name)
+        });
+    }
+    
     const pageSize = 10;
     let size = data.length;
     console.log(size);
@@ -119,6 +146,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                             maxWidth="100%"
                             placeholder="Search"
                             mb="3px"
+                            onKeyPress={handleEnter}
                         />
                         <Flex>
                             <Select placeholder="Song" mr="3px">
@@ -129,6 +157,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                             <IconButton
                                 aria-label="searchButton"
                                 icon={<MdSearch />}
+                                onClick={algo}
                             />
                         </Flex>
                     </Box>
@@ -155,9 +184,9 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                 key={song}
                             >
                                 <Grid templateColumns="repeat(20,1fr)" gap={6}>
-                                    <GridItem ml="10px" mt="5px">
+                                    {/* <GridItem ml="10px" mt="5px">
                                         <ListIcon />
-                                    </GridItem>
+                                    </GridItem> */}
                                     <GridItem colStart={2} colEnd={15} mt="5px">
                                         <Text mt="2px">{song}</Text>
                                     </GridItem>
@@ -199,7 +228,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                                 <PopoverContent>
                                                     <PopoverArrow />
                                                     <PopoverHeader>
-                                                        Header
+                                                        You are about to delete a song
                                                     </PopoverHeader>
                                                     <PopoverCloseButton />
                                                     <PopoverBody>
@@ -207,8 +236,8 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                                             Button
                                                         </Button>
                                                     </PopoverBody>
-                                                    <PopoverFooter>
-                                                        This is the footer
+                                                    <PopoverFooter justifyContent='center'>
+                                                        Are you sure?
                                                     </PopoverFooter>
                                                 </PopoverContent>
                                             </Portal>
