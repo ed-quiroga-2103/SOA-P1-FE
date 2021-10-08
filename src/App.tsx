@@ -39,8 +39,11 @@ function App() {
                             <SongEditor editing={true} />
                         </Container>
                     </Route>
-                    <Route path="/edit-lyrics">
+                    <Route path="/new-lyrics">
                         <LyricsEditor />
+                    </Route>
+                    <Route path="/edit-lyrics">
+                        <LyricsEditor editing={true}/>
                     </Route>
                     <Route path="/register">
                         <Register />
