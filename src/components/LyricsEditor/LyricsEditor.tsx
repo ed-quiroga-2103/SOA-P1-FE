@@ -94,7 +94,7 @@ const LyricsEditor: FC<LyricsEditorProps> = ({ data }) => {
 
         dispatch(setLyrics(data));
 
-        history.push('/test');
+        history.push('/edit-song');
     };
 
     return (
