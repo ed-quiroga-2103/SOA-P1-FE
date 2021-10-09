@@ -1,14 +1,9 @@
 import axios from 'axios';
 import config from '../../../config';
 
-const postUser = async (body: {
-    name: string;
-    lastname: string;
-    email: string;
-    premium: boolean;
-}) => {
+const getUser = async (id) => {
     const response = await axios
-        .post(`${config.API_URL}/users`, body)
+        .delete(`${config.API_URL}/users/${id}`)
         .catch((error) => {
             if (error.response && error.response.status === 409) {
                 return;
@@ -18,4 +13,4 @@ const postUser = async (body: {
     return response;
 };
 
-export default postUser;
+export default getUser;

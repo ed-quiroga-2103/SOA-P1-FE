@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import api from '../../lib/api';
 import auth from '../../lib/auth';
 import { login } from '../../redux/logged';
+import { setId, setPremium } from '../../redux/user';
 
 interface RegisterFormProps {}
 
@@ -28,6 +29,38 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
     const handleEmail = (event) => setEmail(event.target.value);
     const handleUsername = (event) => setUsername(event.target.value);
     const handlePassword = (event) => setPassword(event.target.value);
+
+    const handleRegister = async () => {
+        const data = await auth.register({
+            name,
+            lastName,
+            email,
+            username,
+            password,
+        });
+        if (data.status >= 400) {
+            return;
+        } else {
+            const user = await api.postUser({
+                name,
+                email,
+                premium: false,
+                lastname: lastName,
+            });
+
+            if (user) {
+                const data = user as any;
+                dispach(setId(data._id));
+                dispach(setName(data.name));
+                dispach(setPremium(data.premium));
+                dispach(setUsername(username));
+                dispach(setLastName(data.lastname));
+            }
+            if (data.accessToken) {
+                dispach(login());
+            }
+        }
+    };
 
     return (
         <>
@@ -85,20 +118,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
                         <Button
                             margin="10px"
                             bg="gray.200"
-                            onClick={async () => {
-                                // const data = await auth.register({
-                                //     name,
-                                //     lastName,
-                                //     email,
-                                //     username,
-                                //     password,
-                                // });
-                                await api.postUser();
-                                console.log('posted');
-                                // if (data.accessToken) {
-                                //     dispach(login());
-                                // }
-                            }}
+                            onClick={handleRegister}
                         >
                             Sign In
                         </Button>
