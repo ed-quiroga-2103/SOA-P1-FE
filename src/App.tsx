@@ -12,6 +12,8 @@ import Register from './views/Register';
 import Songs from './views/Songs';
 import Profile from './views/Profile';
 import SongEditor from './components/SongEditor/SongEditor';
+import About from './components/Information/About';
+import Contact from './components/Information/Contact';
 
 function App() {
     return (
@@ -49,6 +51,12 @@ function App() {
                     </Route>
                     <Route path="/songs">
                         <Songs />
+                    </Route>
+                    <Route path="/about">
+                        <About />
+                    </Route>
+                    <Route path="/contact">
+                        <Contact />
                     </Route>
                     <Route path="/">
                         {/* Gotta keep home last */}
