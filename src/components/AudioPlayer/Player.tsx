@@ -30,7 +30,7 @@ const AudioPlayer : FunctionComponent<AudioPlayerProps> = () => {
                     onTimeUpdate={handleOnTimeUpdate}
                     />
                     <div className="controls">
-                    <Flex>
+                    <Flex justifyContent='center'>
                         <div className="actions">
                             <IconButton aria-label='playButton' variant='ghost' onClick={togglePlay}>
                             {!playing ? (
