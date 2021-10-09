@@ -7,12 +7,15 @@ import {
     Input,
     Stack,
     Textarea,
+    Box,
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import api from '../../lib/api';
 
-import { getAlbum, getArtist, getLyrics, getName } from '../../redux/song';
+import { getAlbum, getArtist, getLyrics, getName, setArtist } from '../../redux/song';
+import ErrorWithToolTip from '../ErrorWithToolTip/ErrorWithToolTip';
 
 interface SongEditorProps {
     editing?: boolean;
@@ -28,9 +31,10 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     const history = useHistory();
 
     const [name, setName] = useState(reduxName);
-    const [artist, setArtist] = useState(reduxArtist);
+    const [artist, setArtistL] = useState(reduxArtist);
     const [album, setAlbum] = useState(reduxAlbum);
     const [lyrics, setLyrics] = useState(reduxLyrics);
+    const [hasError, setHasError] = useState(false);
 
     const [file, setFile] = useState('');
     const handleNameChange = (event) => {
@@ -38,7 +42,8 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     };
 
     const handleArtistChange = (event) => {
-        setArtist(event.target.value);
+        setArtistL(event.target.value);
+        dispatch(setArtist(artist))
     };
 
     const handleAlbumChange = (event) => {
@@ -53,14 +58,44 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
         console.log(reader.result);
         setFile('');
     };
-
-    const confirmChanges = () => {
-        if (editing) {
-            console.log('put song');
-        } else {
-            console.log('post song');
+    const handleLyrics = () => {
+        if (editing){
+            history.push('/edit-lyrics')
+        }else{
+            history.push('/new-lyrics')
         }
-        history.push('/songs');
+    }
+
+    const full = ()=> {
+        if(name == '' || artist == '' || album == '' || lyrics == '')
+            return false
+        else
+            return true
+    }
+    const confirmChanges = () => {
+        console.log(full())
+          if (full()){
+              if (editing) {
+                console.log('put song');
+                api.putSong({
+                    name: name,
+                    artist: artist,
+                    album: album,
+                    lyrics: lyrics
+                })
+            } else {
+                console.log('post song');
+                api.postSong({
+                    name: name,
+                    artist: artist,
+                    album: album,
+                    lyrics: lyrics
+                })
+            }
+            history.push('/songs');
+        }else{
+            setHasError(true)
+        }
     };
 
     return (
@@ -110,9 +145,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                     ></Textarea>
                     <Flex justify="left" margin="10px">
                         <Button
-                            onClick={() => {
-                                history.push('/edit-lyrics');
-                            }}
+                            onClick={handleLyrics}
                         >
                             Edit lyrics!
                         </Button>
@@ -121,8 +154,20 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                 {file.length >= 1 ? (
                     <Image boxSize="100px" objectFit="cover" src={file[0]} />
                 ) : undefined}
+                <Box>
+                    {hasError ? (
+                            <ErrorWithToolTip
+                                error="Something is wrong with your data!"
+                                tip="Please make sure that all fields are filled with the corresponding information!"
+                            />
+                        ) : undefined}</Box>
                 <Flex justify="right">
-                    <Button onClick={confirmChanges}>Confirm changes!</Button>
+                    <Button onClick={() => {
+                        setHasError(false);
+                        confirmChanges();
+                        }}
+                        >Confirm changes!
+                    </Button>
                 </Flex>
             </Stack>
         </>

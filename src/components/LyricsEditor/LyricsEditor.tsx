@@ -17,9 +17,10 @@ import ErrorWithToolTip from '../ErrorWithToolTip/ErrorWithToolTip';
 
 interface LyricsEditorProps {
     data?: string;
+    editing?: boolean;
 }
 
-const LyricsEditor: FC<LyricsEditorProps> = ({ data }) => {
+const LyricsEditor: FC<LyricsEditorProps> = ({ data, editing = false }) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -93,8 +94,13 @@ const LyricsEditor: FC<LyricsEditorProps> = ({ data }) => {
         const data = createLRCData(times, lyrics);
 
         dispatch(setLyrics(data));
-
-        history.push('/test');
+        
+        if (editing){
+            history.push('/edit-song');
+        }else{
+            history.push('/create-song');
+        }
+        
     };
 
     return (

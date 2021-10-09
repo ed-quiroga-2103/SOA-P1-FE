@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import LyricsEditor from './components/LyricsEditor/LyricsEditor';
 import Navbar from './components/Navbar/Navbar';
-import SongList from './components/SongList/SongList';
 import Test from './components/test/Test';
 import Home from './views/Home';
 import Login from './views/Login';
@@ -39,8 +38,11 @@ function App() {
                             <SongEditor editing={true} />
                         </Container>
                     </Route>
-                    <Route path="/edit-lyrics">
+                    <Route path="/new-lyrics">
                         <LyricsEditor />
+                    </Route>
+                    <Route path="/edit-lyrics">
+                        <LyricsEditor editing={true}/>
                     </Route>
                     <Route path="/register">
                         <Register />

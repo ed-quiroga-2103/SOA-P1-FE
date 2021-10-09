@@ -24,6 +24,24 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
 
     const handleEmail = (event) => setUsername(event.target.value);
     const handlePassword = (event) => setPassword(event.target.value);
+    
+    function handleEnter(e){
+        var key=e.keyCode || e.which;
+        async function logIn(){
+            const data = await auth.login({
+                username,
+                password,
+            });
+            if (data.accessToken) {
+                dispach(login());
+                history.push('/');
+            }
+        }
+        if (key==13){
+            logIn()
+        }
+    }
+    
     return (
         <>
             <Stack>
@@ -45,6 +63,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                         bg="gray.200"
                         value={password}
                         onChange={handlePassword}
+                        onKeyPress={handleEnter}
                         type="password"
                     />
                     <br />

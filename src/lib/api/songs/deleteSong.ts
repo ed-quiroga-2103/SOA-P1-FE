@@ -1,20 +1,16 @@
 import axios from 'axios';
 import config from '../../../config';
 
-const postSong = async (body: {
-    name: string;
-    artist: string;
-    album: string;
-    lyrics: string;
-}) => {
+const deleteSong = async (id: string) => {
     const response = await axios
-        .post(`${config.API_URL}/songs`, body)
+        .delete(`${config.API_URL}/songs/${id}`)
         .catch((error) => {
             if (error.response && error.response.status === 409) {
                 return;
             }
         });
     console.log(response);
+    
 };
 
-export default postSong;
+export default deleteSong;

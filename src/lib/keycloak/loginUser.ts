@@ -6,6 +6,9 @@ import getAuthToken from './getAuthToken';
 const loginUser = async (loginData: UserLogin) => {
     const params = new URLSearchParams();
 
+
+    console.log(config.KEYCLOAK_URL)
+
     params.append('client_id', 'admin-cli');
     params.append('grant_type', 'password');
     params.append('username', loginData.username);

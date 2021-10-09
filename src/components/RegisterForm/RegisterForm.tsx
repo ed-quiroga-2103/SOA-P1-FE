@@ -120,7 +120,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
                             bg="gray.200"
                             onClick={handleRegister}
                         >
-                            Sign In
+                            Sign Up!
                         </Button>
                     </Center>
                 </FormControl>
