@@ -2,9 +2,7 @@ import { AuthResponse, UserLogin } from '../../types';
 import keycloak from '../keycloak';
 import Cookies from 'universal-cookie';
 
-const login = async (
-    userLogin: UserLogin
-): Promise<AuthResponse> => {
+const login = async (userLogin: UserLogin): Promise<AuthResponse> => {
     const tokens = await keycloak.loginUser(userLogin);
 
     if (!tokens) {

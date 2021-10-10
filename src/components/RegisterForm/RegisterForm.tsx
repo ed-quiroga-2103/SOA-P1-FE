@@ -12,54 +12,76 @@ import { useDispatch } from 'react-redux';
 import api from '../../lib/api';
 import auth from '../../lib/auth';
 import { login } from '../../redux/logged';
-import { setId, setPremium } from '../../redux/user';
+import {
+    setEmail,
+    setId,
+    setLastname,
+    setName,
+    setPremium,
+    setUsername,
+} from '../../redux/user';
+import { useHistory } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react';
 
 interface RegisterFormProps {}
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
     const dispach = useDispatch();
-    const [name, setName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const history = useHistory();
+    const toast = useToast();
 
-    const handleName = (event) => setName(event.target.value);
-    const handleLastName = (event) => setLastName(event.target.value);
-    const handleEmail = (event) => setEmail(event.target.value);
-    const handleUsername = (event) => setUsername(event.target.value);
-    const handlePassword = (event) => setPassword(event.target.value);
+    const [name, setStateName] = useState('');
+    const [lastName, setStateLastName] = useState('');
+    const [email, setStateEmail] = useState('');
+    const [username, setStateUsername] = useState('');
+    const [password, setStatePassword] = useState('');
+
+    const handleName = (event) => setStateName(event.target.value);
+    const handleLastName = (event) => setStateLastName(event.target.value);
+    const handleEmail = (event) => setStateEmail(event.target.value);
+    const handleUsername = (event) => setStateUsername(event.target.value);
+    const handlePassword = (event) => setStatePassword(event.target.value);
 
     const handleRegister = async () => {
-        const data = await auth.register({
+        const authData = await auth.register({
             name,
             lastName,
             email,
             username,
             password,
+            premium: false,
         });
-        if (data.status >= 400) {
-            return;
-        } else {
-            const user = await api.postUser({
-                name,
-                email,
-                premium: false,
-                lastname: lastName,
-            });
 
-            if (user) {
-                const data = user as any;
-                dispach(setId(data._id));
-                dispach(setName(data.name));
-                dispach(setPremium(data.premium));
-                dispach(setUsername(username));
-                dispach(setLastName(data.lastname));
-            }
-            if (data.accessToken) {
-                dispach(login());
-            }
+        if (authData.status >= 400) {
+            toast({
+                title: `The username or email already in use!`,
+                status: 'error',
+                isClosable: true,
+            });
+            return;
         }
+        const user = await api.postUser({
+            name,
+            email,
+            premium: false,
+            lastname: lastName,
+        });
+
+        if (user) {
+            const data = user.data as any;
+
+            dispach(setId(data._id));
+            dispach(setName(data.name));
+            dispach(setPremium(data.premium));
+            dispach(setEmail(data.email));
+            dispach(setUsername(username));
+            dispach(setLastname(data.lastname));
+        }
+
+        if (authData.accessToken) {
+            dispach(login());
+        }
+        history.push('/');
     };
 
     return (

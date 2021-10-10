@@ -15,6 +15,9 @@ const registerUser = async (userRegistration: UserRegistration) => {
                 value: userRegistration.password,
             },
         ],
+        attributes: {
+            premium: userRegistration.premium,
+        },
         enabled: true,
         emailVerified: true,
     };

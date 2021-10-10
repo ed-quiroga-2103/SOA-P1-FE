@@ -1,31 +1,20 @@
 import axios from 'axios';
 import config from '../../config';
-import { UserUpdate } from '../../types';
+import { UserRegistration } from '../../types';
 import auth from '../auth';
 import getAuthToken from './getAuthToken';
 
-const updateUser = async (userRegistration: UserUpdate, premium, token) => {
-    const body = {
-        username: userRegistration.username,
-        email: userRegistration.email,
-        lastName: userRegistration.lastName,
-        firstName: userRegistration.name,
-        attributes: {
-            premium,
-        },
-    };
-
-    const userId = auth.getUserId(token);
+const getUserById = async (token) => {
     const adminTokens = await getAuthToken();
 
     const headers = {
         Authorization: 'Bearer ' + adminTokens.accessToken,
     };
 
+    const userId = auth.getUserId(token);
     const response = await axios
-        .put(
+        .get(
             `${config.KEYCLOAK_URL}/auth/admin/realms/karaokeApp/users/${userId}`,
-            body,
             {
                 headers,
             }
@@ -40,7 +29,7 @@ const updateUser = async (userRegistration: UserUpdate, premium, token) => {
         return { status: 409, message: 'Duplicate User' };
     }
 
-    return { status: response.status };
+    return response;
 };
 
-export default updateUser;
+export default getUserById;

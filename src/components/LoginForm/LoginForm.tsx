@@ -12,6 +12,14 @@ import { useDispatch } from 'react-redux';
 import auth from '../../lib/auth';
 import { login } from '../../redux/logged';
 import { useHistory } from 'react-router-dom';
+import keycloak from '../../lib/keycloak';
+import {
+    setEmail,
+    setLastname,
+    setName,
+    setPremium,
+    setUsername,
+} from '../../redux/user';
 
 interface LoginFormProps {}
 
@@ -19,29 +27,40 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     const history = useHistory();
 
     const dispach = useDispatch();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setStateUsername] = useState('');
+    const [password, setStatePassword] = useState('');
 
-    const handleEmail = (event) => setUsername(event.target.value);
-    const handlePassword = (event) => setPassword(event.target.value);
-    
-    function handleEnter(e){
-        var key=e.keyCode || e.which;
-        async function logIn(){
-            const data = await auth.login({
-                username,
-                password,
-            });
-            if (data.accessToken) {
-                dispach(login());
-                history.push('/');
-            }
-        }
-        if (key==13){
-            logIn()
+    const handleEmail = (event) => setStateUsername(event.target.value);
+    const handlePassword = (event) => setStatePassword(event.target.value);
+
+    async function logIn() {
+        const tokenData = await auth.login({
+            username,
+            password,
+        });
+        if (tokenData.accessToken) {
+            const { data } = (await keycloak.getUserById(
+                tokenData.accessToken
+            )) as any;
+            const user = data;
+
+            dispach(setName(user.firstName));
+            dispach(setLastname(user.lastName));
+            dispach(setUsername(user.username));
+            dispach(setEmail(user.email));
+            dispach(setPremium(user.attributes.premium[0]));
+
+            dispach(login());
+            history.push('/');
         }
     }
-    
+    function handleEnter(e) {
+        var key = e.keyCode || e.which;
+        if (key == 13) {
+            logIn();
+        }
+    }
+
     return (
         <>
             <Stack>
@@ -72,16 +91,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                             margin="10px"
                             color="white"
                             bg="#FF61BE"
-                            onClick={async () => {
-                                const data = await auth.login({
-                                    username,
-                                    password,
-                                });
-                                if (data.accessToken) {
-                                    dispach(login());
-                                    history.push('/');
-                                }
-                            }}
+                            onClick={logIn}
                         >
                             Sign In
                         </Button>

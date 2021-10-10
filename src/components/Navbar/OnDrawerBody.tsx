@@ -9,9 +9,11 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { BiUser } from 'react-icons/bi';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { getUsername } from '../../redux/user';
 
 interface OnDrawerBodyProps {
     action: () => void;
@@ -19,6 +21,8 @@ interface OnDrawerBodyProps {
 
 const OnDrawerBody: FC<OnDrawerBodyProps> = ({ action }) => {
     const history = useHistory();
+
+    const [username, setUsername] = useState(useSelector(getUsername));
 
     return (
         <>
@@ -29,7 +33,7 @@ const OnDrawerBody: FC<OnDrawerBodyProps> = ({ action }) => {
                             <Flex justify="center">
                                 <Icon boxSize={8} as={BiUser} />
                             </Flex>
-                            <Text>USERNAME</Text>
+                            <Text>{username}</Text>
                         </Stack>
                     </Center>
                 </Flex>

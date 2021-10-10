@@ -4,7 +4,7 @@ import { Grid, IconButton, useDisclosure } from '@chakra-ui/react';
 import { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
-import { isLogged, login } from '../../redux/logged';
+import { isLogged, login, logout } from '../../redux/logged';
 import NeonText from '../NeonText/NeonText';
 import NavDrawer from './NavDrawer';
 
@@ -17,6 +17,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     const dispatch = useDispatch();
     if (cookies.get('mochi')) {
         dispatch(login());
+    } else {
+        dispatch(logout);
     }
 
     const logged = useSelector(isLogged);

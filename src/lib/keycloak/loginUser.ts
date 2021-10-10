@@ -1,13 +1,10 @@
 import axios from 'axios';
 import config from '../../config';
-import { UserLogin} from '../../types';
+import { UserLogin } from '../../types';
 import getAuthToken from './getAuthToken';
 
 const loginUser = async (loginData: UserLogin) => {
     const params = new URLSearchParams();
-
-
-    console.log(config.KEYCLOAK_URL)
 
     params.append('client_id', 'admin-cli');
     params.append('grant_type', 'password');
