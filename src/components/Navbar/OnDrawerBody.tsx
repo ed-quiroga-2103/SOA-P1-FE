@@ -72,13 +72,23 @@ const OnDrawerBody: FC<OnDrawerBodyProps> = ({ action }) => {
                         <Text fontSize="lg">My Profile</Text>
                     </Flex>
                 </Link>
-                <Link>
+                <Link 
+                    onClick={() => {
+                        action();
+                        history.push('/about');
+                    }}
+                >
                     <Flex marginBottom="10px" align="center">
                         <EditIcon marginRight="10px" />
                         <Text fontSize="lg">About</Text>
                     </Flex>
                 </Link>
-                <Link>
+                <Link
+                    onClick={() => {
+                        action();
+                        history.push('/contact');
+                    }}
+                >
                     <Flex marginBottom="10px" align="center">
                         <EditIcon marginRight="10px" />
                         <Text fontSize="lg">Contact</Text>
