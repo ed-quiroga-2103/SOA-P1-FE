@@ -20,7 +20,9 @@ import {
     PopoverTrigger,
     Portal,
     Select,
+    Skeleton,
     Spacer,
+    Stack,
     Text,
 } from '@chakra-ui/react';
 import { FunctionComponent, useState, useEffect } from 'react';
@@ -167,13 +169,6 @@ const SongList: FunctionComponent<SongListProps> = () => {
                 <hr />
                 <Box padding="4" bg="#d9eb4b" maxW="wxl" borderRadius="xl">
                     <Flex justify="right" mb="7px">
-                        <IconButton
-                            aria-label="refresh"
-                            size="sm"
-                            icon={<MdRefresh />}
-                            //onClick={() => loadItems(request)}
-                            mr="5px"
-                        ></IconButton>
                         <Button
                             size="sm"
                             rightIcon={<MdAdd />}
@@ -184,7 +179,11 @@ const SongList: FunctionComponent<SongListProps> = () => {
                     </Flex>
                     <List>
                         {isLoading && (
-                            <p> Wait we are fetching the songs for you </p>
+                            <Stack>
+                                <Skeleton startColor="black.500" endColor="pink.500" height="20px" />
+                                <Skeleton startColor="black.500" endColor="pink.500" height="20px" />
+                                <Skeleton startColor="black.500" endColor="pink.500" height="20px" />
+                            </Stack>
                         )}
                         {songs.map(
                             (
