@@ -13,33 +13,31 @@
   </head>
   <body>
   
-  <header class="site-header">
-    <nav class="navbar navbar-expand-md navbar-dark bg fixed-top">
-      <div class="container">
-        <a class="navbar-brand mr-5 offset-md-5" href="index.html">KaraokeApp</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-     
-      </div>
-
-    </nav>
-  </header>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg fixed-top">
+        <div class="container justify-content-center">
+          <a class="navbar-brand mr-5" href="index.html">KaraokeApp</a>
+    </div>
+      </nav>
+    </header>
   </body>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
-	body {background-color:#ffffff;background-repeat:no-repeat;background-position:top left;background-attachment:fixed;}
-	h1{font-family:Arial, sans-serif;color:#000000;background-color:#ffffff;}
-	p {text-align:center;font-family:Verdana, serif;font-size:14px;font-style:normal;font-weight:normal;color:#000000;background-color:#ffffff;}
-	</style>
-	</head>
 	<body>
     <div class="container">
-	<h1>REST API</h1>
-	<p>Para  esta,  las  opciones  si  bien  pueden  ser  muchas  ya  se  tenía  visualizado  usar  javascript  como lenguaje principal para el desarrollo de esta.   </p>
-	<p > En terminos de levantar el server para los request se decidió tambión que se iba a utilizar express.  Ambas decisiones vienen dadas por la experiencia previa con estas herramientas por lo que sería un avance empezar con estas. </p>
-  <p > De estas decisiones el proyecto siguió con express por su facilidad de habilitar diferentes tipos de request, lanzar mensajesde error y habilitar cors.  Sin embargo, luego de esto se decidió migrar el proyecto a typescript que,si bien es cierto de alguna forma se sigue usando javscript, typescript es una plataforma que brinda más beneficios en terminos de herramientas y uso de la misma.  </p>
-  <p > Por ello se usa typescript para esto.  Además tiene muchas ventajas para usar diferentes tipos de bases de datos que se necesitaran durante el proyecto y la documentación sobre esta es bastante extensa.</p>
-</div>
+<div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="content-section">
+              <h2>Autentificación</h2>
+              </div>
+            <div class="content-section">
+              <p>Para el motor de la base de datos se tuvieron dos opciones principalmente: MySQL y MongoDB. Estas dos opciones son importantes porque presentan dos mundos diferentes en las bases de datos de forma que tenemos una base SQL y otra No-SQL.  </p>
+              <p > En este caso se decide optar por MongoDB por las siguientes razones: </p>
+              <p > * Previamente se había escogido typescript y Node.js que tienen plugins para Mongo  </p>
+              <p > * Mongo DB tiene una fácil forma para crear bases de datos que no necesitan script y, como se guarda en formato JSON es más maleable y fácil de modificar que una base de datos en SQL.</p>
+              <p > * Como se verá en el siguiente punto Mongo además posee un fácil storage en cloud por medio de Mongo Atlas.</p>
+              <p > * La forma de hacer request a la base de Mongo por medio de typescript también hace más sencillo el trabajo haciendo que el desarrollo se facilite más para los request. </p>
+            </div>
+          </div>
+
 	</body>
 </html>
