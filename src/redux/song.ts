@@ -4,16 +4,17 @@ import { RootState } from '../app/store';
 export const slice = createSlice({
     name: 'song',
     initialState: {
-        name: '',
+        songName: '',
         artist: '',
         album: '',
         lyrics: '',
+        _id: '',
     },
     reducers: {
-        setName: (state, values) => {
+        setSongName: (state, values) => {
             localStorage.setItem('song', values.payload);
 
-            state.name = values.payload;
+            state.songName = values.payload;
         },
         setArtist: (state, values) => {
             localStorage.setItem('artist', values.payload);
@@ -30,16 +31,22 @@ export const slice = createSlice({
 
             state.lyrics = values.payload;
         },
+        setSongId: (state, values) => {
+            localStorage.setItem('songId', values.payload);
+
+            state.lyrics = values.payload;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setName, setArtist, setAlbum, setLyrics } = slice.actions;
+export const { setSongName, setArtist, setAlbum, setLyrics, setSongId } =
+    slice.actions;
 
-export const getName = (state: RootState) => {
+export const getSongName = (state: RootState) => {
     const name = localStorage.getItem('song');
     if (name) return name;
-    return state.song.name;
+    return state.song.songName;
 };
 
 export const getArtist = (state: RootState) => {
@@ -58,6 +65,12 @@ export const getLyrics = (state: RootState) => {
     const lyrics = localStorage.getItem('lyrics');
     if (lyrics) return lyrics;
     return state.song.lyrics;
+};
+
+export const getSongId = (state: RootState) => {
+    const id = localStorage.getItem('songId');
+    if (id) return id;
+    return state.song._id;
 };
 
 export default slice.reducer;

@@ -38,7 +38,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import api from '../../lib/api';
-import { setAlbum, setArtist, setLyrics, setName } from '../../redux/song';
+import { setAlbum, setArtist, setLyrics, setSongName, setSongId } from '../../redux/song';
 import { getPremium } from '../../redux/user';
 
 interface SongListProps {
@@ -137,7 +137,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
             return;
         }
 
-        dispatch(setName(song.name));
+        dispatch(setSongName(song.name));
         dispatch(setAlbum(song.album));
         dispatch(setArtist(song.artist));
         dispatch(setLyrics(song.lyrics));
@@ -146,7 +146,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
     }
 
     function addSong() {
-        dispatch(setName(''));
+        dispatch(setSongName(''));
         dispatch(setAlbum(''));
         dispatch(setArtist(''));
         dispatch(setLyrics(''));
@@ -273,9 +273,12 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                                     variant="ghost"
                                                     size="md"
                                                     icon={<MdEdit />}
-                                                    onClick={() =>
-                                                        editSong(song)
-                                                    }
+                                                    onClick={() => {
+                                                        dispatch(
+                                                            setSongId(song._id)
+                                                        );
+                                                        editSong(song);
+                                                    }}
                                                 />
                                             </GridItem>
                                             <GridItem

@@ -20,10 +20,11 @@ import {
     getAlbum,
     getArtist,
     getLyrics,
-    getName,
+    getSongId,
+    getSongName,
     setAlbum,
     setArtist,
-    setName,
+    setSongName,
 } from '../../redux/song';
 import ErrorWithToolTip from '../ErrorWithToolTip/ErrorWithToolTip';
 
@@ -33,12 +34,15 @@ interface SongEditorProps {
 
 const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     const dispatch = useDispatch();
-    const reduxName = useSelector(getName);
+    const reduxName = useSelector(getSongName);
     const reduxArtist = useSelector(getArtist);
     const reduxAlbum = useSelector(getAlbum);
     const reduxLyrics = useSelector(getLyrics);
+    const id = useSelector(getSongId);
 
     const history = useHistory();
+
+    console.log(id);
 
     const [name, setStateName] = useState(reduxName);
     const [artist, setStateArtist] = useState(reduxArtist);
@@ -49,7 +53,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     const [file, setFile] = useState('');
     const handleNameChange = (event) => {
         setStateName(event.target.value);
-        dispatch(setName(event.target.value));
+        dispatch(setSongName(event.target.value));
     };
 
     const handleArtistChange = (event) => {
@@ -83,20 +87,21 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
             return false;
         else return true;
     };
-    const confirmChanges = () => {
+    const confirmChanges = async () => {
         console.log(full());
         if (full()) {
             if (editing) {
                 console.log('put song');
-                api.putSong({
-                    name: name,
-                    artist: artist,
-                    album: album,
-                    lyrics: lyrics,
+                await api.putSong({
+                    name,
+                    artist,
+                    album,
+                    lyrics,
+                    _id: id,
                 });
             } else {
                 console.log('post song');
-                api.postSong({
+                await api.postSong({
                     name: name,
                     artist: artist,
                     album: album,
