@@ -7,7 +7,7 @@ const Landing: FunctionComponent<LandingProps> = () => {
     const history = useHistory();
     return (
         <>
-            <Center backgroundImage="https://p4.wallpaperbetter.com/wallpaper/879/1018/485/blur-bokeh-close-concert-wallpaper-preview.jpg" height='486px'>
+            <Center height='100%' bg = 'gray'>
                 <Stack justify="center" mt='300px'>
                     <Text color='#08F7FE'>Welcome to the landing page</Text>
                     <Text color='#08F7FE'>for our amazing website</Text>
@@ -36,11 +36,6 @@ const Landing: FunctionComponent<LandingProps> = () => {
                     </Flex>
                 </Stack>
             </Center>
-            <Flex overflow='hidden'>
-            <Image src="https://p4.wallpaperbetter.com/wallpaper/879/1018/485/blur-bokeh-close-concert-wallpaper-preview.jpg"/>
-            <Image src="https://p4.wallpaperbetter.com/wallpaper/879/1018/485/blur-bokeh-close-concert-wallpaper-preview.jpg"/>
-            <Image src="https://p4.wallpaperbetter.com/wallpaper/879/1018/485/blur-bokeh-close-concert-wallpaper-preview.jpg"/>
-            </Flex>
         </>
     );
 };
