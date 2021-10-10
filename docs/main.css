@@ -11,6 +11,7 @@ body {
   
   h1, h2, h3, h4, h5, h6 {
     color: #444444;
+    text-align: center;
   }
   
   ul {
@@ -43,17 +44,13 @@ body {
   }
   
  
-  
-  .site-header .navbar-nav .nav-link {
-    color: #cbd5db;
+  .navbar-brand{
+    justify-content: center;
+    color: white;
   }
   
-  .site-header .navbar-nav .nav-link:hover {
-    color: #F0F8FF;
-  }
-  
-  .site-header .navbar-nav .nav-link.active {
-    font-weight: 500;
+  .navbar-brand:hover {
+    background-color: #4e539e;
   }
   
   .content-section {
@@ -77,3 +74,22 @@ body {
     font-size: 2.5rem;
   }	
   
+  .boton{
+    background-color: #483D8B;
+    color: white;
+  }
+
+  .main{
+    place-self: center;
+
+ }
+
+ .body{
+   align-items: center ;
+   padding: auto;
+   justify-content: center;
+   padding: auto;
+ }
+ .list-group-item{
+  text-align: center;
+ }
