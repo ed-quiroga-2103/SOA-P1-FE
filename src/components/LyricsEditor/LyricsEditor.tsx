@@ -27,15 +27,19 @@ const LyricsEditor: FC<LyricsEditorProps> = ({ data, editing = false }) => {
     let reduxData = data;
 
     const reduxLyrics = useSelector(getLyrics);
+
     if (!data) {
         reduxData = reduxLyrics;
     }
 
-    const handledData = handleLRCData(reduxData);
-
-    const times = handledData.times.join('\n');
-    const lyrics = handledData.lyrics.join('\n');
-
+    let handledData = { times: [], lyrics: [] };
+    let times = '[00:00:00]';
+    let lyrics = '';
+    if (reduxLyrics !== '') {
+        handledData = handleLRCData(reduxData);
+        times = handledData.times.join('\n');
+        lyrics = handledData.lyrics.join('\n');
+    }
     const [timesData, setTimesData] = useState(times);
     const [lyricsData, setLyricsData] = useState(lyrics);
     const [hasError, setHasError] = useState(false);
@@ -94,13 +98,12 @@ const LyricsEditor: FC<LyricsEditorProps> = ({ data, editing = false }) => {
         const data = createLRCData(times, lyrics);
 
         dispatch(setLyrics(data));
-        
-        if (editing){
+
+        if (editing) {
             history.push('/edit-song');
-        }else{
+        } else {
             history.push('/create-song');
         }
-        
     };
 
     return (

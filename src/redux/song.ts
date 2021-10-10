@@ -11,10 +11,9 @@ export const slice = createSlice({
     },
     reducers: {
         setName: (state, values) => {
-            localStorage.setItem('name', values.payload);
+            localStorage.setItem('song', values.payload);
 
             state.name = values.payload;
-
         },
         setArtist: (state, values) => {
             localStorage.setItem('artist', values.payload);
@@ -38,7 +37,7 @@ export const slice = createSlice({
 export const { setName, setArtist, setAlbum, setLyrics } = slice.actions;
 
 export const getName = (state: RootState) => {
-    const name = localStorage.getItem('name');
+    const name = localStorage.getItem('song');
     if (name) return name;
     return state.song.name;
 };

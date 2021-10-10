@@ -8,13 +8,23 @@ import {
     Stack,
     Textarea,
     Box,
+    Spacer,
+    Divider,
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import api from '../../lib/api';
 
-import { getAlbum, getArtist, getLyrics, getName, setArtist } from '../../redux/song';
+import {
+    getAlbum,
+    getArtist,
+    getLyrics,
+    getName,
+    setAlbum,
+    setArtist,
+    setName,
+} from '../../redux/song';
 import ErrorWithToolTip from '../ErrorWithToolTip/ErrorWithToolTip';
 
 interface SongEditorProps {
@@ -30,24 +40,26 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
 
     const history = useHistory();
 
-    const [name, setName] = useState(reduxName);
-    const [artist, setArtistL] = useState(reduxArtist);
-    const [album, setAlbum] = useState(reduxAlbum);
-    const [lyrics, setLyrics] = useState(reduxLyrics);
-    const [hasError, setHasError] = useState(false);
+    const [name, setStateName] = useState(reduxName);
+    const [artist, setStateArtist] = useState(reduxArtist);
+    const [album, setStateAlbum] = useState(reduxAlbum);
+    const [lyrics, setStateLyrics] = useState(reduxLyrics);
+    const [hasError, setStateHasError] = useState(false);
 
     const [file, setFile] = useState('');
     const handleNameChange = (event) => {
-        setName(event.target.value);
+        setStateName(event.target.value);
+        dispatch(setName(event.target.value));
     };
 
     const handleArtistChange = (event) => {
-        setArtistL(event.target.value);
-        dispatch(setArtist(artist))
+        setStateArtist(event.target.value);
+        dispatch(setArtist(event.target.value));
     };
 
     const handleAlbumChange = (event) => {
-        setAlbum(event.target.value);
+        setStateAlbum(event.target.value);
+        dispatch(setAlbum(event.target.value));
     };
 
     const handleFileChange = (event) => {
@@ -59,42 +71,41 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
         setFile('');
     };
     const handleLyrics = () => {
-        if (editing){
-            history.push('/edit-lyrics')
-        }else{
-            history.push('/new-lyrics')
+        if (editing) {
+            history.push('/edit-lyrics');
+        } else {
+            history.push('/new-lyrics');
         }
-    }
+    };
 
-    const full = ()=> {
-        if(name == '' || artist == '' || album == '' || lyrics == '')
-            return false
-        else
-            return true
-    }
+    const full = () => {
+        if (name == '' || artist == '' || album == '' || lyrics == '')
+            return false;
+        else return true;
+    };
     const confirmChanges = () => {
-        console.log(full())
-          if (full()){
-              if (editing) {
+        console.log(full());
+        if (full()) {
+            if (editing) {
                 console.log('put song');
                 api.putSong({
                     name: name,
                     artist: artist,
                     album: album,
-                    lyrics: lyrics
-                })
+                    lyrics: lyrics,
+                });
             } else {
                 console.log('post song');
                 api.postSong({
                     name: name,
                     artist: artist,
                     album: album,
-                    lyrics: lyrics
-                })
+                    lyrics: lyrics,
+                });
             }
             history.push('/songs');
-        }else{
-            setHasError(true)
+        } else {
+            setStateHasError(true);
         }
     };
 
@@ -140,15 +151,12 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                     <FormLabel color="black">Lyrics</FormLabel>
                     <Textarea
                         bg="gray.200"
+                        readOnly
                         resize="none"
                         defaultValue={lyrics}
                     ></Textarea>
                     <Flex justify="left" margin="10px">
-                        <Button
-                            onClick={handleLyrics}
-                        >
-                            Edit lyrics!
-                        </Button>
+                        <Button onClick={handleLyrics}>Edit lyrics!</Button>
                     </Flex>
                 </FormControl>
                 {file.length >= 1 ? (
@@ -156,17 +164,29 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                 ) : undefined}
                 <Box>
                     {hasError ? (
-                            <ErrorWithToolTip
-                                error="Something is wrong with your data!"
-                                tip="Please make sure that all fields are filled with the corresponding information!"
-                            />
-                        ) : undefined}</Box>
+                        <ErrorWithToolTip
+                            error="Something is wrong with your data!"
+                            tip="Please make sure that all fields are filled with the corresponding information!"
+                        />
+                    ) : undefined}
+                </Box>
+                <Divider />
                 <Flex justify="right">
-                    <Button onClick={() => {
-                        setHasError(false);
-                        confirmChanges();
+                    <Button
+                        onClick={() => {
+                            history.push('/songs');
                         }}
-                        >Confirm changes!
+                    >
+                        Back
+                    </Button>
+                    <Spacer />
+                    <Button
+                        onClick={() => {
+                            setStateHasError(false);
+                            confirmChanges();
+                        }}
+                    >
+                        Confirm changes!
                     </Button>
                 </Flex>
             </Stack>

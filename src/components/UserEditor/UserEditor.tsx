@@ -18,7 +18,6 @@ import {
     getLastname,
     getName,
     getPremium,
-    getUsername,
     setEmail,
     setLastname,
     setName,
@@ -26,7 +25,7 @@ import {
 } from '../../redux/user';
 import PasswordEditor from './PasswordEditor';
 import { useHistory } from 'react-router-dom';
-import { Cookies, useCookies } from 'react-cookie';
+import { Cookies } from 'react-cookie';
 
 interface UserEditorProps {}
 

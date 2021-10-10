@@ -6,6 +6,7 @@ import {
     FormLabel,
     Input,
     Stack,
+    useToast,
 } from '@chakra-ui/react';
 import { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -25,6 +26,7 @@ interface LoginFormProps {}
 
 const LoginForm: FunctionComponent<LoginFormProps> = () => {
     const history = useHistory();
+    const toast = useToast();
 
     const dispach = useDispatch();
     const [username, setStateUsername] = useState('');
@@ -52,6 +54,13 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
 
             dispach(login());
             history.push('/');
+        } else {
+            toast({
+                title: `Wrong username or password!`,
+                status: 'error',
+                isClosable: true,
+            });
+            return;
         }
     }
     function handleEnter(e) {

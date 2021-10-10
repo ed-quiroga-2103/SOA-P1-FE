@@ -1,6 +1,7 @@
 import {
     Box,
     Button,
+    Center,
     Container,
     Flex,
     Grid,
@@ -8,14 +9,12 @@ import {
     IconButton,
     Input,
     List,
-    ListIcon,
     ListItem,
     Popover,
     PopoverArrow,
     PopoverBody,
     PopoverCloseButton,
     PopoverContent,
-    PopoverFooter,
     PopoverHeader,
     PopoverTrigger,
     Portal,
@@ -24,8 +23,9 @@ import {
     Spacer,
     Stack,
     Text,
+    useToast,
 } from '@chakra-ui/react';
-import { FunctionComponent, useState, useEffect } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import {
     MdAdd,
     MdArrowLeft,
@@ -34,12 +34,12 @@ import {
     MdEdit,
     MdPlayArrow,
     MdSearch,
-    MdRefresh,
 } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import api from '../../lib/api';
-import { useDispatch, useSelector } from 'react-redux';
 import { setAlbum, setArtist, setLyrics, setName } from '../../redux/song';
+import { getPremium } from '../../redux/user';
 
 interface SongListProps {
     songs?: string[];
@@ -48,6 +48,8 @@ interface SongListProps {
 const SongList: FunctionComponent<SongListProps> = () => {
     const history = useHistory();
     const dispatch = useDispatch();
+    const isPremium = useSelector(getPremium);
+    const toast = useToast();
 
     const [request, setRequest] = useState(null);
     const [searchCriteria, setSearchCriteria] = useState('Song');
@@ -58,26 +60,24 @@ const SongList: FunctionComponent<SongListProps> = () => {
     const [pages, setPages] = useState(0);
     const [comp, setComp] = useState([]);
 
-    const handleSearchCriteria = (event) => setSearchCriteria(event.target.value);
+    const handleSearchCriteria = (event) =>
+        setSearchCriteria(event.target.value);
     const handleSearchValue = (event) => setSearchValue(event.target.value);
 
-    
     useEffect(() => {
         async function getData() {
             await api
                 .getSongs()
                 .then((response) => {
-                    const test = response as any;       // Fake typing
-                    console.log('Test', test);
+                    const test = response as any; // Fake typing
                     setSongs(test.data);
                     setIsLoading(false);
-                    console.log("printing data",test.data)
                 })
                 .catch((error) => console.log(error));
         }
 
         getData();
-    }, [pages]);
+    }, [pages, request]);
 
     const pageSize = 10;
 
@@ -89,10 +89,11 @@ const SongList: FunctionComponent<SongListProps> = () => {
         }
     }
 
-    function searchBy() {
+    async function searchBy() {
         console.log(searchCriteria);
         console.log(searchValue);
-        api.getSong(searchCriteria, searchValue);
+        const songs = (await api.getSong(searchCriteria, searchValue)) as any;
+        setSongs(songs.data);
     }
 
     function handlePage(event) {
@@ -100,17 +101,42 @@ const SongList: FunctionComponent<SongListProps> = () => {
         let b = 10 * event.target.id;
         setSongs(request.data.slice(a, b));
     }
-    
+
     function play(algo) {
         console.log('Song is playing: ' + algo.name);
     }
 
-    function deleteSong(id) {
+    async function deleteSong(id) {
+        if (!(isPremium === 'true')) {
+            toast({
+                title: `You're not allowed to do this!`,
+                status: 'error',
+                isClosable: true,
+            });
+            return;
+        }
         console.log('Deleting song: ' + id);
-        api.deleteSong(id);
+        await api.deleteSong(id);
+        await api
+            .getSongs()
+            .then((response) => {
+                const test = response as any; // Fake typing
+                setSongs(test.data);
+                setIsLoading(false);
+            })
+            .catch((error) => console.log(error));
     }
 
     function editSong(song) {
+        if (!(isPremium === 'true')) {
+            toast({
+                title: `You're not allowed to do this!`,
+                status: 'error',
+                isClosable: true,
+            });
+            return;
+        }
+
         dispatch(setName(song.name));
         dispatch(setAlbum(song.album));
         dispatch(setArtist(song.artist));
@@ -180,108 +206,141 @@ const SongList: FunctionComponent<SongListProps> = () => {
                     <List>
                         {isLoading && (
                             <Stack>
-                                <Skeleton startColor="black.500" endColor="pink.500" height="20px" />
-                                <Skeleton startColor="black.500" endColor="pink.500" height="20px" />
-                                <Skeleton startColor="black.500" endColor="pink.500" height="20px" />
+                                <Skeleton
+                                    startColor="black.500"
+                                    endColor="pink.500"
+                                    height="20px"
+                                />
+                                <Skeleton
+                                    startColor="black.500"
+                                    endColor="pink.500"
+                                    height="20px"
+                                />
+                                <Skeleton
+                                    startColor="black.500"
+                                    endColor="pink.500"
+                                    height="20px"
+                                />
                             </Stack>
                         )}
                         {songs.map(
                             (
                                 song // I need each element to be a song object so i can load it in redux befor an edit
-                            ) => {return (
-                                <ListItem
-                                    mt="3px"
-                                    bg="#000000"
-                                    borderRadius="md"
-                                    height="43px"
-                                    color="#FE53BB"
-                                    key={song.name}
-                                >
-                                    <Grid
-                                        templateColumns="repeat(20,1fr)"
-                                        gap={6}
+                            ) => {
+                                return (
+                                    <ListItem
+                                        mt="3px"
+                                        bg="#000000"
+                                        borderRadius="md"
+                                        height="43px"
+                                        color="#FE53BB"
+                                        key={song.name}
                                     >
-                                        <GridItem
-                                            colStart={2}
-                                            colEnd={15}
-                                            mt="5px"
+                                        <Grid
+                                            templateColumns="repeat(20,1fr)"
+                                            gap={6}
                                         >
-                                            <Text mt="2px">{song.name}</Text>
-                                        </GridItem>
+                                            <GridItem
+                                                colStart={2}
+                                                colEnd={15}
+                                                mt="5px"
+                                            >
+                                                <Text mt="2px">
+                                                    {song.name}
+                                                </Text>
+                                            </GridItem>
 
-                                        <GridItem
-                                            colStart={18}
-                                            mt="2px"
-                                            ml="120px"
-                                        >
-                                            <IconButton
-                                                aria-label="playButton"
-                                                variant="ghost"
-                                                size="md"
-                                                icon={<MdPlayArrow />}
-                                                onClick={() => play(song)}
-                                            />
-                                        </GridItem>
-                                        <GridItem
-                                            colStart={19}
-                                            mt="2px"
-                                            ml="50px"
-                                        >
-                                            <IconButton
-                                                aria-label="editButton"
-                                                variant="ghost"
-                                                size="md"
-                                                icon={<MdEdit />}
-                                                onClick={() => editSong(song)}
-                                            />
-                                        </GridItem>
-                                        <GridItem
-                                            colStart={20}
-                                            mt="2px"
-                                            ml="30px"
-                                        >
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <IconButton
-                                                        aria-label="deleteButton"
-                                                        size="md"
-                                                        mr="3px"
-                                                        variant="ghost"
-                                                        color="FE53BB"
-                                                        icon={<MdDelete />}
-                                                    ></IconButton>
-                                                </PopoverTrigger>
-                                                <Portal>
-                                                    <PopoverContent>
-                                                        <PopoverArrow />
-                                                        <PopoverHeader>
-                                                            You are about to
-                                                            delete a song
-                                                        </PopoverHeader>
-                                                        <PopoverCloseButton />
-                                                        <PopoverBody>
-                                                            <Button
-                                                                colorScheme="blue"
-                                                                onClick={
-                                                                    () =>
-                                                                        deleteSong(
-                                                                            song._id
-                                                                        ) //This should take the id of the song thats about to be deleted.
-                                                                }
-                                                            >
-                                                                Confirm
-                                                            </Button>
-                                                        </PopoverBody>
-                                                        <PopoverFooter justifyContent="center">
-                                                            Are you sure?
-                                                        </PopoverFooter>
-                                                    </PopoverContent>
-                                                </Portal>
-                                            </Popover>
-                                        </GridItem>
-                                    </Grid>
-                                </ListItem>
-                            )}
+                                            <GridItem
+                                                colStart={18}
+                                                mt="2px"
+                                                ml="120px"
+                                            >
+                                                <IconButton
+                                                    aria-label="playButton"
+                                                    variant="ghost"
+                                                    size="md"
+                                                    icon={<MdPlayArrow />}
+                                                    onClick={() => play(song)}
+                                                />
+                                            </GridItem>
+                                            <GridItem
+                                                colStart={19}
+                                                mt="2px"
+                                                ml="50px"
+                                            >
+                                                <IconButton
+                                                    aria-label="editButton"
+                                                    variant="ghost"
+                                                    size="md"
+                                                    icon={<MdEdit />}
+                                                    onClick={() =>
+                                                        editSong(song)
+                                                    }
+                                                />
+                                            </GridItem>
+                                            <GridItem
+                                                colStart={20}
+                                                mt="2px"
+                                                ml="30px"
+                                            >
+                                                <Popover>
+                                                    <PopoverTrigger>
+                                                        <IconButton
+                                                            aria-label="deleteButton"
+                                                            size="md"
+                                                            mr="3px"
+                                                            variant="ghost"
+                                                            color="FE53BB"
+                                                            icon={<MdDelete />}
+                                                        ></IconButton>
+                                                    </PopoverTrigger>
+                                                    <Portal>
+                                                        <PopoverContent>
+                                                            <PopoverArrow />
+                                                            <PopoverHeader>
+                                                                <Center>
+                                                                    <Text fontSize="lg">
+                                                                        You are
+                                                                        about to
+                                                                        delete a
+                                                                        song!
+                                                                    </Text>
+                                                                </Center>
+                                                            </PopoverHeader>
+                                                            <PopoverCloseButton />
+                                                            <PopoverBody>
+                                                                <Stack>
+                                                                    <Center
+                                                                        m={2}
+                                                                    >
+                                                                        <Text>
+                                                                            Are
+                                                                            you
+                                                                            sure?
+                                                                        </Text>
+                                                                    </Center>
+                                                                    <Button
+                                                                        colorScheme="red"
+                                                                        w="100%"
+                                                                        onClick={
+                                                                            () =>
+                                                                                deleteSong(
+                                                                                    song._id
+                                                                                ) //This should take the id of the song thats about to be deleted.
+                                                                        }
+                                                                    >
+                                                                        Confirm
+                                                                    </Button>
+                                                                </Stack>
+                                                            </PopoverBody>
+                                                        </PopoverContent>
+                                                    </Portal>
+                                                </Popover>
+                                            </GridItem>
+                                        </Grid>
+                                    </ListItem>
+                                );
+                            }
                         )}
                     </List>
 
