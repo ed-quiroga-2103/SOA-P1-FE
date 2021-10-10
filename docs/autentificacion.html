@@ -30,12 +30,9 @@
               <h2>Autentificación</h2>
               </div>
             <div class="content-section">
-              <p>Para el motor de la base de datos se tuvieron dos opciones principalmente: MySQL y MongoDB. Estas dos opciones son importantes porque presentan dos mundos diferentes en las bases de datos de forma que tenemos una base SQL y otra No-SQL.  </p>
-              <p > En este caso se decide optar por MongoDB por las siguientes razones: </p>
-              <p > * Previamente se había escogido typescript y Node.js que tienen plugins para Mongo  </p>
-              <p > * Mongo DB tiene una fácil forma para crear bases de datos que no necesitan script y, como se guarda en formato JSON es más maleable y fácil de modificar que una base de datos en SQL.</p>
-              <p > * Como se verá en el siguiente punto Mongo además posee un fácil storage en cloud por medio de Mongo Atlas.</p>
-              <p > * La forma de hacer request a la base de Mongo por medio de typescript también hace más sencillo el trabajo haciendo que el desarrollo se facilite más para los request. </p>
+              <p> Para el uso de la autentificacion de usuario se utilizó Keycloak como software que valide el login de los usuarios </p>
+              <p > Keycloak posee su propia base de datos que valida y guarda los usuarios de forma que se vuelve muy fácil la validación de esta información, si se quisiera, la información se puede replicar en la base de mongo para llevar un seguimiento de estos.</p>
+              <p >Con esto no tenemos que ingresar cada vez a Keycloak para ahcer revisión de esta infromación sino que se peude ingresar a Atlas donde se guarda la demás información del proyecto.</p>
             </div>
           </div>
 
