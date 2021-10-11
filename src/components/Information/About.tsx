@@ -25,13 +25,12 @@ const About: FunctionComponent<AboutProps> = () => {
         <>
             <Box 
                 bg='gray.200' 
-                width={1890} 
-                height={840} 
-                overflow='hidden'           
-                backgroundImage="https://get.wallhere.com/photo/1900x1080-px-astronaut-flag-simple-simple-background-space-x-px-668556.jpg"
+                width="100%"
+                height="87vh"
+                overflow='hidden'
                 >
                 <Stack>
-                    <Grid templateColumns="repeat(9,1fr)" gap={4} color='gray.100' ml='160px' mt='50px' >
+                    <Grid templateColumns="repeat(9,1fr)" gap={4} color='gray.600' ml='160px' mt='50px' >
                         <GridItem colStart={1} colEnd={3}>Eduardo Quiroga: </GridItem>
                         <GridItem colStart={1} colEnd={3} rowStart={2}>ed.quiroga2103@gmail.com </GridItem>
                         <GridItem colStart={3} colEnd={5}>Pablo Mora</GridItem>
@@ -46,21 +45,21 @@ const About: FunctionComponent<AboutProps> = () => {
                     
                     <Flex >
                         <Box
-                            w='400px'
-                            h='700px'
+                            w='20%'
+                            h='100%'
                             ml='200px'
                             mt='100px'
-                            color='gray.100'
+                            color='gray.600'
                         >
                             {about}
                         </Box>
                         <Spacer/>
                         <Box
-                            w='400px'
-                            h='700px'
+                            w='20%'
+                            h='100%'
                             mr='200px'
                             mt='100px'
-                            color='gray.100'
+                            color='gray.600'
                             >
                                 Placeholder for more text later. We are filling a whole line to see
                         </Box>

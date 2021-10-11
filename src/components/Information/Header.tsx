@@ -15,7 +15,7 @@ const Header : FunctionComponent<HeaderProps> = () =>{
         <>
             <Grid templateColumns="repeat(7, 1fr)" gap={4}>
                 <Box
-                    w='770px'
+                    w='140%'
                     h='5px'
                     bg ='gray'
                     borderRadius='2xl'
@@ -33,14 +33,14 @@ const Header : FunctionComponent<HeaderProps> = () =>{
                     > 
                         <Text
                         color='gray'
-                        fontSize='6xl'
+                        fontSize='350%'
                         >
                             About Us 
                         </Text>
                 </Box>
                     
                 <Box
-                    w='770px'
+                    w='148%'
                     h='5px'
                     bg ='gray'
                     borderRadius='2xl'
