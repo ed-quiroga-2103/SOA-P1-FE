@@ -1,39 +1,67 @@
-
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  
-    <link rel="stylesheet" href="main.css">
-  </head>
-  <body>
-  
-    <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg fixed-top">
-        <div class="container justify-content-center">
-          <a class="navbar-brand mr-5" href="index.html">KaraokeApp</a>
-    </div>
-      </nav>
-    </header>
-  </body>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
-	body {background-color:#ffffff;background-repeat:no-repeat;background-position:top left;background-attachment:fixed;}
-	h1{font-family:Arial, sans-serif;color:#000000;background-color:#ffffff;}
-	p {text-align:center;font-family:Verdana, serif;font-size:14px;font-style:normal;font-weight:normal;color:#000000;background-color:#ffffff;}
-	</style>
-	</head>
-	<body>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg fixed-top">
+            <div class="container justify-content-center">
+                <a class="navbar-brand mr-5" href="index.html">KaraokeApp</a>
+            </div>
+        </nav>
+    </header>
+</body>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        background-color: #ffffff;
+        background-repeat: no-repeat;
+        background-position: top left;
+        background-attachment: fixed;
+    }
+    
+    h1 {
+        font-family: Arial, sans-serif;
+        color: #000000;
+        background-color: #ffffff;
+    }
+    
+    p {
+        text-align: center;
+        font-family: Verdana, serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: normal;
+        color: #000000;
+        background-color: #ffffff;
+    }
+</style>
+</head>
+
+<body>
     <div class="container">
-	<h1>Almacenamiento en Cloud</h1>
-	<p>Como la base de datos se almacena en Mongo DB, tenía sentido seguir usando todas las herramientas que esta posee por lo cual se utilizó Mondo DB Atlas para crear un cluster para albergar la base de datos. </p>
-	<p >Este se creo en la página de Mongo de manera muy sencilla y gratuita, esta permite un almacenamiento de hasta 512 MB y en este se pueden habilitar direcciones IP puntuales, apra que principalmetne el servidor donde se encuentre el API la utilice, así como usuarios, bases de datos, permisos y medibles de uso. </p>
-</div>
-	</body>
+        <div class="content-section">
+            <h1>Almacenamiento en Cloud</h1>
+        </div>
+        <div class="content-section">
+            <p>Como la base de datos se almacena en MongoDB, tiene sentido seguir usando todas las herramientas que esta posee por lo cual se utiliza el servicio <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> para crear un cluster que alberga
+                la base de datos. </p>
+            <p>Este se crea en la página de MongoDB de manera muy sencilla y gratuita, permite un almacenamiento de hasta 512 MB y en este se pueden habilitar direcciones IP puntuales, para que, principalmente el servidor donde se encuentre el API, la accese.
+                Además de esto, presenta funcionalidades como manejo como usuarios, bases de datos, permisos y métricas de uso. </p>
+        </div>
+    </div>
+</body>
+
 </html>

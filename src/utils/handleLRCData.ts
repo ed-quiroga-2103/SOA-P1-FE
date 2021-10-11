@@ -9,9 +9,19 @@ const handleLRCData = (data) => {
         const time = values[0] + ']';
         const lyrics = values[1];
 
-        timesList.push(time);
+        const formattedTime = time.replace('[', '').replace(']', '');
+
+        const times = formattedTime.split(':');
+
+        const seconds =
+            Number(times[0]) * 3600 + Number(times[1]) * 60 + Number(times[2]);
+
+        timesList.push(seconds);
         lyricsList.push(lyrics);
     }
+
+    timesList.pop();
+    lyricsList.pop();
 
     return { times: timesList, lyrics: lyricsList };
 };

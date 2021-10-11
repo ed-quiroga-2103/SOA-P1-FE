@@ -1,42 +1,48 @@
-
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  
-    <link rel="stylesheet" href="main.css">
-  </head>
-  <body>
-  
-    <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg fixed-top">
-        <div class="container justify-content-center">
-          <a class="navbar-brand mr-5" href="index.html">KaraokeApp</a>
-    </div>
-      </nav>
-    </header>
-  </body>
-	<body>
-    <div class="container">
-<div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="content-section">
-              <h2>Motor de Bases de Datos</h2>
-              </div>
-            <div class="content-section">
-              <p>Para el motor de la base de datos se tuvieron dos opciones principalmente: MySQL y MongoDB. Estas dos opciones son importantes porque presentan dos mundos diferentes en las bases de datos de forma que tenemos una base SQL y otra No-SQL.  </p>
-              <p > En este caso se decide optar por MongoDB por las siguientes razones: </p>
-              <p > * Previamente se había escogido typescript y Node.js que tienen plugins para Mongo  </p>
-              <p > * Mongo DB tiene una fácil forma para crear bases de datos que no necesitan script y, como se guarda en formato JSON es más maleable y fácil de modificar que una base de datos en SQL.</p>
-              <p > * Como se verá en el siguiente punto Mongo además posee un fácil storage en cloud por medio de Mongo Atlas.</p>
-              <p > * La forma de hacer request a la base de Mongo por medio de typescript también hace más sencillo el trabajo haciendo que el desarrollo se facilite más para los request. </p>
-            </div>
-          </div>
 
-	</body>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg fixed-top">
+            <div class="container justify-content-center">
+                <a class="navbar-brand mr-5" href="index.html">KaraokeApp</a>
+            </div>
+        </nav>
+    </header>
+</body>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="content-section">
+                    <h2>Motor de Bases de Datos</h2>
+                </div>
+                <div class="content-section">
+                    <p> Para el motor de la base de datos se plantearon dos opciones principalmente: MySQL y MongoDB, las cuales se determinaron por la familiaridad con los sistemas, y porque presentan dos modelos de almacenamiento diferentes; MySQL en tablas,
+                        y MongoDB en documentos.
+                    </p>
+                    <p> En este caso se decide optar por MongoDB por las siguientes razones: </p>
+                    <p> * Previamente se había escogido TypeScript y Node.js que tienen facilidad para trabajar con MongoDB. </p>
+                    <p> * MongoDB facilita la creación de bases de datos ya que no necesitan script y, como los documentos se guardan en formato JSON resulta más maleable y fácil de modificar que una base de datos SQL.</p>
+                    <p> * Como se verá en el siguiente punto, MongoDB además posee un fácil storage en cloud por medio del servicio
+                        <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a>.</p>
+                    <p> * La forma de hacer requests a la base de MongoDB por medio de Express JS también resulta en trabajo más sencillo haciendo que el desarrollo se facilite para los realizar los request.</p>
+                </div>
+            </div>
+
+</body>
+
 </html>
