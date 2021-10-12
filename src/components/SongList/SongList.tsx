@@ -25,6 +25,7 @@ import {
     Text,
     useToast,
 } from '@chakra-ui/react';
+import { current } from 'immer';
 import { FunctionComponent, useEffect, useState } from 'react';
 import {
     MdAdd,
@@ -59,6 +60,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
     const [songs, setSongs] = useState([]);
     const [pages, setPages] = useState(0);
     const [comp, setComp] = useState([]);
+    const [currentPage,setCurrentPage] = useState(1);
 
     const handleSearchCriteria = (event) =>
         setSearchCriteria(event.target.value);
@@ -88,6 +90,30 @@ const SongList: FunctionComponent<SongListProps> = () => {
             searchBy();
         }
     }
+    function paginate(songs){
+        let localComp = [];
+        let numOfPages = Math.ceil(songs.length/10);
+        for (let i = 0; i <numOfPages; i++){
+            var j = String(i+1);
+            localComp.push(<Button
+                        id= {j}
+                        key={i} 
+                        size="sm" 
+                        mt="4px" 
+                        mr="3px" 
+                        variant='ghost' 
+                        color="#35212A"
+                        //onClick ={handlePage}
+                        readOnly
+                        > {currentPage} 
+                      </Button>)
+        }
+        console.log(numOfPages);
+        setCurrentPage(1);
+        setComp(localComp);
+        setPages(numOfPages);
+
+    }
 
     async function searchBy() {
         console.log(searchCriteria);
@@ -99,7 +125,47 @@ const SongList: FunctionComponent<SongListProps> = () => {
     function handlePage(event) {
         let a = 10 * (event.target.id - 1);
         let b = 10 * event.target.id;
-        setSongs(request.data.slice(a, b));
+        setSongs(songs.slice(a, b));
+        setCurrentPage(event.target.id);
+        console.log("Setting current page to: ",event.target.id)
+    }
+    async function handleArrow(event){
+        console.log(event.target.id)
+        if(event.target.id == 'leftArrow'){
+            try{
+                setSongs([]);
+                setIsLoading(true);
+                await api
+                .getPage(currentPage-1)
+                .then((response) => {
+                    const test = response as any; // Fake typing
+                    setSongs(test.data);
+                    setCurrentPage(currentPage-1);
+                    setIsLoading(false);
+                })
+                .catch((error) => console.log(error));
+            }catch(error){
+                console.log(error)
+            }
+        }else if (event.target.id == 'rightArrow'){
+            try{
+                setSongs([]);
+                setIsLoading(true);
+                await api
+                .getPage(currentPage+1)
+                .then((response) => {
+                    const test = response as any; // Fake typing
+                    setSongs(test.data);
+                    setCurrentPage(currentPage+1);
+                    setIsLoading(false);
+                })
+                .catch((error) => console.log(error));
+                console.log("current page: ", currentPage)
+            }catch(error){
+                console.log(error)
+            }
+            
+        }
     }
 
     function play(algo) {
@@ -193,17 +259,75 @@ const SongList: FunctionComponent<SongListProps> = () => {
                     </Box>
                 </Flex>
                 <hr />
-                <Box padding="4" bg="#d9eb4b" maxW="wxl" borderRadius="xl">
-                    <Flex justify="right" mb="7px">
+                <Box padding="4" bg="#ffacfc" maxW="wxl" borderRadius="xl">
+                    <Flex justify='right' mb="7px">
                         <Button
                             size="sm"
+                            bg="black"
+                            color='white'
                             rightIcon={<MdAdd />}
                             onClick={() => addSong()}
+                            
                         >
                             Add
                         </Button>
                     </Flex>
                     <List>
+                        {<ListItem
+                                        mt="3px"
+                                        bg='black'
+                                        borderRadius="md"
+                                        height="43px"
+                                        color="white"
+                                        key='initial'
+                                    >
+                                        <Grid
+                                            templateColumns="repeat(20,1fr)"
+                                            gap={6}
+                                        >
+                                            <GridItem
+                                                colStart={2}
+                                                colEnd={7}
+                                                mt="5px"
+                                            >
+                                                <Text mt="2px">
+                                                    Song
+                                                </Text>
+                                            </GridItem>
+
+                                            <GridItem
+                                                colStart={7}
+                                                colEnd={14}
+                                                mt="5px"
+                                                ml="9%"
+                                            >
+                                                <Text mt="2px">
+                                                    Artist
+                                                </Text>
+                                            </GridItem>
+
+                                            <GridItem
+                                                colStart={14}
+                                                colEnd={18}
+                                                mt="5px"
+                                            >
+                                                <Text mt="2px">
+                                                    Album
+                                                </Text>
+                                            </GridItem>
+                                            
+                                            <GridItem
+                                                colStart={19}
+                                                colEnd={20}
+                                                mt="5px"
+                                            >
+                                                <Text mt="2px">
+                                                    Customize
+                                                </Text>
+                                            </GridItem>
+
+                                        </Grid>
+                        </ListItem>}
                         {isLoading && (
                             <Stack>
                                 <Skeleton
@@ -234,7 +358,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                         borderRadius="md"
                                         height="43px"
                                         color="#FE53BB"
-                                        key={song.name}
+                                        key={song.id}
                                     >
                                         <Grid
                                             templateColumns="repeat(20,1fr)"
@@ -242,11 +366,31 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                         >
                                             <GridItem
                                                 colStart={2}
-                                                colEnd={15}
+                                                colEnd={8}
                                                 mt="5px"
                                             >
                                                 <Text mt="2px">
                                                     {song.name}
+                                                </Text>
+                                            </GridItem>
+
+                                            <GridItem
+                                                colStart={8}
+                                                colEnd={14}
+                                                mt="5px"
+                                            >
+                                                <Text mt="2px">
+                                                    {song.artist}
+                                                </Text>
+                                            </GridItem>
+
+                                            <GridItem
+                                                colStart={15}
+                                                colEnd={18}
+                                                mt="5px"
+                                            >
+                                                <Text mt="2px">
+                                                    {song.album}
                                                 </Text>
                                             </GridItem>
 
@@ -349,21 +493,31 @@ const SongList: FunctionComponent<SongListProps> = () => {
 
                     <Flex justify="right" mt="10px">
                         <IconButton
+                            id='leftArrow'
                             aria-label="ArrowLeft"
                             variant="ghost"
                             as={MdArrowLeft}
                             boxSize={8}
                             color="#35212A"
                             mt="2px"
+                            onClick={handleArrow}
                         />
-                        {comp}
+                        <Text 
+                            mt='6px' 
+                            ml='3px' 
+                            mr='3px'
+                            >
+                                {currentPage}
+                            </Text>
                         <IconButton
+                            id='rightArrow'
                             aria-label="ArrowRight"
                             variant="ghost"
                             as={MdArrowRight}
                             boxSize={8}
                             color="#35212A"
                             mt="2px"
+                            onClick={handleArrow}
                         />
                     </Flex>
                 </Box>

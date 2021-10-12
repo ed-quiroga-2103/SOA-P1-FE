@@ -5,6 +5,7 @@ import getSong from './songs/getSong';
 import getSongs from './songs/getSongs';
 import deleteSong from './songs/deleteSong';
 import putSong from './songs/putSong';
+import getPage from './songs/getPage';
 export default {
     postUser,
     getUser,
@@ -13,4 +14,5 @@ export default {
     getSongs,
     deleteSong,
     putSong,
+    getPage
 };

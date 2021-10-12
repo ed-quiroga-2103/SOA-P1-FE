@@ -4,11 +4,13 @@ import handleLRCData from '../../utils/handleLRCData';
 
 interface LyricsScrollProps {
     lyrics: string;
+    playing?: boolean;
+    onChange: any;
 }
 
-const LyricsScroll: FC<LyricsScrollProps> = ({ lyrics }) => {
+const LyricsScroll: FC<LyricsScrollProps> = ({ lyrics, playing, onChange }) => {
     const [currentSeconds, setCurrentSeconds] = useState(0);
-    const [playing, setPlaying] = useState(false);
+    //const [playing, setPlaying] = useState(false);
     const [index, setIndex] = useState(1);
 
     const handledData = handleLRCData(lyrics);
@@ -47,7 +49,7 @@ const LyricsScroll: FC<LyricsScrollProps> = ({ lyrics }) => {
                     <Text>Seconds: {currentSeconds}</Text>
                     <Button
                         onClick={() => {
-                            setPlaying(!playing);
+                            //setPlaying(!playing);
                         }}
                     >
                         play

@@ -10,6 +10,7 @@ import {
     Box,
     Spacer,
     Divider,
+    useToast
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,6 +42,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     const id = useSelector(getSongId);
 
     const history = useHistory();
+    const toast = useToast();
 
     console.log(id);
 
@@ -87,6 +89,12 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
             return false;
         else return true;
     };
+    const missingField = () =>{
+        if (name == '') {return "name"}
+        else if (artist == '') {return "artist"} 
+        else if (album == '')  {return "album"}
+        else if (lyrics == '') {return "lyrics"}
+    }
     const confirmChanges = async () => {
         console.log(full());
         if (full()) {
@@ -110,7 +118,11 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
             }
             history.push('/songs');
         } else {
-            setStateHasError(true);
+            toast({
+                title: `You are missing a field. Check the ${missingField()}`,
+                status: 'error',
+                isClosable: true,
+            })
         }
     };
 

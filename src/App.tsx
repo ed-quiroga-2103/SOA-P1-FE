@@ -56,7 +56,9 @@ function App() {
                         <About />
                     </Route>
                     <Route path="/contact">
-                        <Contact />
+                        <Container>
+                            <Contact />
+                        </Container>
                     </Route>
                     <Route path="/">
                         {/* Gotta keep home last */}

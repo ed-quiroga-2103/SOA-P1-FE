@@ -3,9 +3,11 @@ import Audiohook from './PlayerHook';
 import {MdPlayArrow, MdPause, MdVolumeMute, MdVolumeUp} from 'react-icons/md';
 import Icon from "@chakra-ui/icon";
 import { Select, Flex, IconButton } from "@chakra-ui/react";
-interface AudioPlayerProps{}
+interface AudioPlayerProps{
+    isplaying?: boolean;
+}
 
-const AudioPlayer : FunctionComponent<AudioPlayerProps> = () => {
+const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({isplaying}) => {
 
     const videoElement = useRef(null);
 
@@ -20,11 +22,12 @@ const AudioPlayer : FunctionComponent<AudioPlayerProps> = () => {
         handleVideoSpeed,
         toggleMute
     }   = Audiohook(videoElement);
+    
     return(
         <>
-            <div className="container">
+            
                 <div className="video-wrapper">
-                    <video
+                    <audio
                     /* src={video} */
                     ref={videoElement}
                     onTimeUpdate={handleOnTimeUpdate}
@@ -71,7 +74,7 @@ const AudioPlayer : FunctionComponent<AudioPlayerProps> = () => {
                     </Flex>
                     </div>
                 </div>
-            </div>
+            
         </>
     )
 };
