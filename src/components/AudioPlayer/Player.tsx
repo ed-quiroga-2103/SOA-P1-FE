@@ -1,17 +1,19 @@
 import React, { FunctionComponent, useRef } from "react";
-import Audiohook from './PlayerHook';
-import {MdPlayArrow, MdPause, MdVolumeMute, MdVolumeUp} from 'react-icons/md';
+import {MdVolumeMute, MdVolumeUp} from 'react-icons/md';
 import Icon from "@chakra-ui/icon";
 import { Select, Flex, IconButton } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+
 interface AudioPlayerProps{
-    isplaying?: boolean;
+    playing?: boolean;
+    tooglePlay?: any;
 }
 
-const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({isplaying}) => {
+const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({playing}) => {
 
     const videoElement = useRef(null);
-
-    const {                                     // Setting up the hook
+    
+    /* const {                                     // Setting up the hook
         playing,
         progress,
         speed,
@@ -20,8 +22,56 @@ const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({isplaying}) => {
         handleOnTimeUpdate,
         handleVideoProgress,
         handleVideoSpeed,
-        toggleMute
-    }   = Audiohook(videoElement);
+        toggleMute,
+        setPlaying
+    }   = Audiohook(videoElement); */
+////////////////////////////////////////////////////
+
+    //const [playing, setPlaying] = useState(false);
+    const [progress, setProgress] = useState(0);        // State variables 
+    const [speed, setSpeed] = useState(1);
+    const [muted, setMuted] = useState(false);
+
+  /* const togglePlay = () => {
+    setPlaying(!playing);                               // Toggle
+  }; */
+
+    useEffect(() => {                                     // Hook to change between paused and playing
+        playing
+        ? videoElement.current.play()
+        : videoElement.current.pause();
+    }, [playing, videoElement]);
+
+    const handleOnTimeUpdate = () => {                    // Helps tracking the progress
+        const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
+        setProgress(progress);
+    };
+
+    const handleVideoProgress = (event) => {              // Handles the possibility to drag the progress bar 
+        const manualChange = Number(event.target.value);
+        //videoElement.current.currentTime = (videoElement.current.duration / 100) * manualChange;  //This is the reference to the video
+        setProgress(manualChange);
+    };
+
+    const handleVideoSpeed = (event) => {                 // Handles the video speed
+        const speed = Number(event.target.value);
+        videoElement.current.playbackRate = speed;
+        setSpeed(speed)
+    };
+    const toggleMute = () => {                            // Toggles mute
+        setMuted(!muted)
+    };
+
+    useEffect(() => {                                     // Hook for toggling mute
+        muted
+        ? (videoElement.current.muted = true)
+        : (videoElement.current.muted = false);
+    }, [muted, videoElement]);
+
+
+
+////////////////////////////////////////////////////
+
     
     return(
         <>
@@ -35,13 +85,13 @@ const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({isplaying}) => {
                     <div className="controls">
                     <Flex justifyContent='center'>
                         <div className="actions">
-                            <IconButton aria-label='playButton' variant='ghost' onClick={togglePlay}>
+                            {/* <IconButton aria-label='playButton' variant='ghost' onClick={togglePlay}>
                             {!playing ? (
                                 <Icon as={MdPlayArrow}></Icon>
                             ) : (
                                 <Icon as={MdPause}></Icon>
                             )}
-                            </IconButton>
+                            </IconButton> */}
                         </div>
                         <input
                             type="range"
@@ -58,6 +108,7 @@ const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({isplaying}) => {
                             width='70px'
                             height='30px'
                             mt='5px'
+                            bg='gray.200'
                         >
                             <option value="0.50">0.50x</option>
                             <option value="1">1x</option>

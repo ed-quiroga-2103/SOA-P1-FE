@@ -53,6 +53,7 @@ const useVideoPlayer = (videoElement) => {
     handleVideoProgress,
     handleVideoSpeed,
     toggleMute,
+    setPlaying
   };
 };
 

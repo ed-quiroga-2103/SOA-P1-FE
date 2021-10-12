@@ -8,7 +8,7 @@ interface LyricsScrollProps {
     onChange: any;
 }
 
-const LyricsScroll: FC<LyricsScrollProps> = ({ lyrics, playing, onChange }) => {
+const LyricsScroll: FC<LyricsScrollProps> = ({ lyrics, playing }) => {
     const [currentSeconds, setCurrentSeconds] = useState(0);
     //const [playing, setPlaying] = useState(false);
     const [index, setIndex] = useState(1);
@@ -47,13 +47,13 @@ const LyricsScroll: FC<LyricsScrollProps> = ({ lyrics, playing, onChange }) => {
                             : ''}
                     </Text>
                     <Text>Seconds: {currentSeconds}</Text>
-                    <Button
+                    {/* <Button
                         onClick={() => {
                             //setPlaying(!playing);
                         }}
                     >
                         play
-                    </Button>
+                    </Button> */}
                 </Stack>
             </Center>
         </Container>

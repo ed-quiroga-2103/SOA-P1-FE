@@ -1,4 +1,4 @@
-import { Container } from '@chakra-ui/layout';
+import { Center, Container, Flex } from '@chakra-ui/layout';
 import { FC, useRef } from 'react';
 import AudioPlayer from '../AudioPlayer/Player';
 import { useState } from 'react';
@@ -13,7 +13,7 @@ interface TestProps {}
 
 const Test: FC<TestProps> = () => {
     
-    const [playing, setPlaying] = useState(true);
+    const [playing, setPlaying] = useState(false);
 
     const togglePlay =()=>{
         setPlaying(!playing);
@@ -31,14 +31,16 @@ const Test: FC<TestProps> = () => {
                     playing={playing}
                     
                 ></LyricsScroll>
-                <IconButton aria-label='playButton' variant='ghost' onClick={togglePlay}>
+                <Flex justify='center' borderRadius='2xl' bg ='gray.200'>                    
+                        <IconButton aria-label='playButton' variant='ghost' mr='15px' onClick={togglePlay}>
                             {!playing ? (
-                                <Icon as={MdPlayArrow}></Icon>
+                            <Icon as={MdPlayArrow}></Icon>
                             ) : (
-                                <Icon as={MdPause}></Icon>
-                            )}
-                            </IconButton>
-                <AudioPlayer />
+                            <Icon as={MdPause}></Icon>
+                                )}
+                        </IconButton>
+                        <AudioPlayer playing={playing}/>
+                </Flex>
             </Container>
         </>
     );
