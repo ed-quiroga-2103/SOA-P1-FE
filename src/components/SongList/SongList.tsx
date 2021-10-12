@@ -86,7 +86,6 @@ const SongList: FunctionComponent<SongListProps> = () => {
     function handleEnter(e) {
         var key = e.keyCode || e.which;
         if (key == 13) {
-            console.log('capturing enter');
             searchBy();
         }
     }
@@ -108,7 +107,6 @@ const SongList: FunctionComponent<SongListProps> = () => {
                         > {currentPage} 
                       </Button>)
         }
-        console.log(numOfPages);
         setCurrentPage(1);
         setComp(localComp);
         setPages(numOfPages);
@@ -116,8 +114,6 @@ const SongList: FunctionComponent<SongListProps> = () => {
     }
 
     async function searchBy() {
-        console.log(searchCriteria);
-        console.log(searchValue);
         const songs = (await api.getSong(searchCriteria, searchValue)) as any;
         setSongs(songs.data);
     }
@@ -127,20 +123,21 @@ const SongList: FunctionComponent<SongListProps> = () => {
         let b = 10 * event.target.id;
         setSongs(songs.slice(a, b));
         setCurrentPage(event.target.id);
-        console.log("Setting current page to: ",event.target.id)
+        
     }
     async function handleArrow(event){
-        console.log(event.target.id)
+        
         if(event.target.id == 'leftArrow'){
             try{
-                setSongs([]);
-                setIsLoading(true);
+                if(currentPage!=1){setIsLoading(true); setSongs([]);}
                 await api
                 .getPage(currentPage-1)
                 .then((response) => {
                     const test = response as any; // Fake typing
-                    setSongs(test.data);
-                    setCurrentPage(currentPage-1);
+                    if(test.status !=204){
+                        setSongs(test.data);
+                        setCurrentPage(currentPage-1);
+                    }
                     setIsLoading(false);
                 })
                 .catch((error) => console.log(error));
@@ -149,18 +146,26 @@ const SongList: FunctionComponent<SongListProps> = () => {
             }
         }else if (event.target.id == 'rightArrow'){
             try{
+                let local = songs;
                 setSongs([]);
                 setIsLoading(true);
                 await api
                 .getPage(currentPage+1)
                 .then((response) => {
                     const test = response as any; // Fake typing
-                    setSongs(test.data);
-                    setCurrentPage(currentPage+1);
-                    setIsLoading(false);
+
+                    if (test.data.length >0){
+                        setSongs(test.data);
+                        setCurrentPage(currentPage+1);
+                        setIsLoading(false);
+                    }else{
+                        
+                        setSongs(local);
+                        setIsLoading(false)
+                    }
                 })
                 .catch((error) => console.log(error));
-                console.log("current page: ", currentPage)
+                
             }catch(error){
                 console.log(error)
             }
@@ -169,7 +174,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
     }
 
     function play(algo) {
-        console.log('Song is playing: ' + algo.name);
+        
     }
 
     async function deleteSong(id) {
@@ -181,7 +186,6 @@ const SongList: FunctionComponent<SongListProps> = () => {
             });
             return;
         }
-        console.log('Deleting song: ' + id);
         await api.deleteSong(id);
         await api
             .getSongs()
@@ -207,7 +211,6 @@ const SongList: FunctionComponent<SongListProps> = () => {
         dispatch(setAlbum(song.album));
         dispatch(setArtist(song.artist));
         dispatch(setLyrics(song.lyrics));
-        console.log('Editting song: ' + song.name);
         history.push('/edit-song');
     }
 
@@ -217,12 +220,11 @@ const SongList: FunctionComponent<SongListProps> = () => {
         dispatch(setArtist(''));
         dispatch(setLyrics(''));
         history.push('/create-song');
-        console.log('we are adding a new song');
     }
 
     return (
         <>
-            <Container maxW="wxl">
+            <Container maxW="100%" /* bg='black' */ borderRadius='2xl'>
                 <Flex boxSize="wxl">
                     <Text fontSize="3xl" color="#FE53BB">
                         {' '}
@@ -244,6 +246,8 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                 defaultValue={searchCriteria}
                                 mr="3px"
                                 onChange={handleSearchCriteria}
+                                color='#00FECA'
+                                bg='#7B61F8'
                             >
                                 <option value="Song"> Song </option>
                                 <option value="Artist"> Artist </option>
@@ -254,6 +258,8 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                 aria-label="searchButton"
                                 icon={<MdSearch />}
                                 onClick={searchBy}
+                                bg='#7B61F8'
+                                color='#00FECA'
                             />
                         </Flex>
                     </Box>
@@ -498,7 +504,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                             variant="ghost"
                             as={MdArrowLeft}
                             boxSize={8}
-                            color="#35212A"
+                            color="#000000"
                             mt="2px"
                             onClick={handleArrow}
                         />
@@ -506,6 +512,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                             mt='6px' 
                             ml='3px' 
                             mr='3px'
+                            color='black'
                             >
                                 {currentPage}
                             </Text>
@@ -515,7 +522,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                             variant="ghost"
                             as={MdArrowRight}
                             boxSize={8}
-                            color="#35212A"
+                            color="#000000"
                             mt="2px"
                             onClick={handleArrow}
                         />
