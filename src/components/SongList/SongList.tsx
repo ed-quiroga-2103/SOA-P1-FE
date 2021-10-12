@@ -246,7 +246,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                 defaultValue={searchCriteria}
                                 mr="3px"
                                 onChange={handleSearchCriteria}
-                                color='#00FECA'
+                                color='white'
                                 bg='#7B61F8'
                             >
                                 <option value="Song"> Song </option>
@@ -259,7 +259,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                 icon={<MdSearch />}
                                 onClick={searchBy}
                                 bg='#7B61F8'
-                                color='#00FECA'
+                                color='white'
                             />
                         </Flex>
                     </Box>
