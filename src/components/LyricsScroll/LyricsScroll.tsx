@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Button, Center, Container, Stack, Text } from '@chakra-ui/react';
+import { Box, Center, Container, Stack, Text } from '@chakra-ui/react';
 import handleLRCData from '../../utils/handleLRCData';
 
 interface LyricsScrollProps {
@@ -31,21 +31,23 @@ const LyricsScroll: FC<LyricsScrollProps> = ({ lyrics, playing }) => {
         <Container>
             <Center bg="gray.400">
                 <Stack justify="center">
-                    <Text justify="center">
+                    <Box boxSize='3.5' />
+                    <Text justify="center"  fontWeight='extrabold' fontFamily='sans-serif'>
                         {handledData.lyrics[index - 2]
                             ? handledData.lyrics[index - 2]
                             : ''}
                     </Text>
-                    <Text color="red" justify="center">
+                    <Text color="red" justify="center" fontSize='2xl' fontWeight='extrabold' fontFamily='sans-serif' >
                         {handledData.lyrics[index - 1]
                             ? handledData.lyrics[index - 1]
                             : ''}
                     </Text>
-                    <Text justify="center">
+                    <Text justify="center" fontWeight='extrabold' fontFamily='sans-serif'>
                         {handledData.lyrics[index]
                             ? handledData.lyrics[index]
                             : ''}
                     </Text>
+                    <Box boxSize='3.5' />
                     <Text>Seconds: {currentSeconds}</Text>
                     {/* <Button
                         onClick={() => {
