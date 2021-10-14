@@ -9,15 +9,49 @@ import { IconButton } from '@chakra-ui/button';
 import Icon from '@chakra-ui/icon';
 import { MdPlayArrow, MdPause } from 'react-icons/md';
 
+
+
 interface TestProps {}
 
 const Test: FC<TestProps> = () => {
     
     const [playing, setPlaying] = useState(false);
+    var audio = new Audio('https://karaoketec.s3.us-east-2.amazonaws.com/7');
+    var playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+          // Automatic playback started!
+          // Show playing UI.
+          // We can now safely pause video...
+          audio.pause();
+        })
+        .catch(error => {
+          // Auto-play was prevented
+          // Show paused UI.
+        });
+      }
+    
+    
+    async function playAudio() {
+        try {
+          await audio.play();
+          
+        } catch(err) {
+          
+        }
+      }
 
     const togglePlay =()=>{
-        setPlaying(!playing);
-        console.log(playing);
+        if (audio.paused) {
+            
+            playAudio();
+            console.log(playing);
+          } else {
+            audio.pause();
+            
+          }
+       
     }
 
     return (
