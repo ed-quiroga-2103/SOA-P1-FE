@@ -1,18 +1,17 @@
-import React, { FunctionComponent, useRef } from "react";
-import {MdVolumeMute, MdVolumeUp} from 'react-icons/md';
-import Icon from "@chakra-ui/icon";
-import { Select, Flex, IconButton } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import React, { FunctionComponent, useRef } from 'react';
+import { MdVolumeMute, MdVolumeUp } from 'react-icons/md';
+import Icon from '@chakra-ui/icon';
+import { Select, Flex, IconButton } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
 
-interface AudioPlayerProps{
+interface AudioPlayerProps {
     playing?: boolean;
     tooglePlay?: any;
 }
 
-const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({playing}) => {
-
+const AudioPlayer: FunctionComponent<AudioPlayerProps> = ({ playing }) => {
     const videoElement = useRef(null);
-    
+
     /* const {                                     // Setting up the hook
         playing,
         progress,
@@ -25,65 +24,67 @@ const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({playing}) => {
         toggleMute,
         setPlaying
     }   = Audiohook(videoElement); */
-////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////
 
     //const [playing, setPlaying] = useState(false);
-    const [progress, setProgress] = useState(0);        // State variables 
+    const [progress, setProgress] = useState(0); // State variables
     const [speed, setSpeed] = useState(1);
     const [muted, setMuted] = useState(false);
 
-  /* const togglePlay = () => {
+    /* const togglePlay = () => {
     setPlaying(!playing);                               // Toggle
   }; */
 
-    useEffect(() => {                                     // Hook to change between paused and playing
-        playing
-        ? videoElement.current.play()
-        : videoElement.current.pause();
+    useEffect(() => {
+        // Hook to change between paused and playing
+        playing ? videoElement.current.play() : videoElement.current.pause();
     }, [playing, videoElement]);
 
-    const handleOnTimeUpdate = () => {                    // Helps tracking the progress
-        const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
+    const handleOnTimeUpdate = () => {
+        // Helps tracking the progress
+        const progress =
+            (videoElement.current.currentTime / videoElement.current.duration) *
+            100;
         setProgress(progress);
     };
 
-    const handleVideoProgress = (event) => {              // Handles the possibility to drag the progress bar 
+    const handleVideoProgress = (event) => {
+        // Handles the possibility to drag the progress bar
         const manualChange = Number(event.target.value);
         //videoElement.current.currentTime = (videoElement.current.duration / 100) * manualChange;  //This is the reference to the video
         setProgress(manualChange);
     };
 
-    const handleVideoSpeed = (event) => {                 // Handles the video speed
+    const handleVideoSpeed = (event) => {
+        // Handles the video speed
         const speed = Number(event.target.value);
         videoElement.current.playbackRate = speed;
-        setSpeed(speed)
+        setSpeed(speed);
     };
-    const toggleMute = () => {                            // Toggles mute
-        setMuted(!muted)
+    const toggleMute = () => {
+        // Toggles mute
+        setMuted(!muted);
     };
 
-    useEffect(() => {                                     // Hook for toggling mute
+    useEffect(() => {
+        // Hook for toggling mute
         muted
-        ? (videoElement.current.muted = true)
-        : (videoElement.current.muted = false);
+            ? (videoElement.current.muted = true)
+            : (videoElement.current.muted = false);
     }, [muted, videoElement]);
 
+    ////////////////////////////////////////////////////
 
-
-////////////////////////////////////////////////////
-
-    
-    return(
+    return (
         <>
-            
-                <div className="video-wrapper">
-                    <audio
+            <div className="video-wrapper">
+                <audio
                     /* src={video} */
                     ref={videoElement}
                     onTimeUpdate={handleOnTimeUpdate}
-                    />
-                    <div className="controls">
-                    <Flex justifyContent='center'>
+                />
+                <div className="controls">
+                    <Flex justifyContent="center">
                         <div className="actions">
                             {/* <IconButton aria-label='playButton' variant='ghost' onClick={togglePlay}>
                             {!playing ? (
@@ -102,13 +103,13 @@ const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({playing}) => {
                         />
                         <Select
                             className="velocity"
-                            variant='ghost'
+                            variant="ghost"
                             value={speed}
                             onChange={(e) => handleVideoSpeed(e)}
-                            width='70px'
-                            height='30px'
-                            mt='5px'
-                            bg='gray.200'
+                            width="70px"
+                            height="30px"
+                            mt="5px"
+                            bg="gray.200"
                         >
                             <option value="0.50">0.50x</option>
                             <option value="1">1x</option>
@@ -117,17 +118,16 @@ const AudioPlayer : FunctionComponent<AudioPlayerProps> = ({playing}) => {
                         </Select>
                         <button className="mute-btn" onClick={toggleMute}>
                             {!muted ? (
-                            <Icon as={MdVolumeUp}></Icon>
+                                <Icon as={MdVolumeUp}></Icon>
                             ) : (
-                            <Icon as={MdVolumeMute}></Icon>
+                                <Icon as={MdVolumeMute}></Icon>
                             )}
                         </button>
                     </Flex>
-                    </div>
                 </div>
-            
+            </div>
         </>
-    )
+    );
 };
 
 export default AudioPlayer;

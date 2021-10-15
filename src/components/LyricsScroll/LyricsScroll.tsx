@@ -29,33 +29,39 @@ const LyricsScroll: FC<LyricsScrollProps> = ({ lyrics, playing }) => {
     });
     return (
         <Container>
-            <Center bg="gray.400">
+            <Center bg="gray.400" height="176px">
                 <Stack justify="center">
-                    <Box boxSize='3.5' />
-                    <Text justify="center"  fontWeight='extrabold' fontFamily='sans-serif'>
+                    <Box boxSize="3.5" />
+                    <Text
+                        justify="center"
+                        fontWeight="extrabold"
+                        fontFamily="sans-serif"
+                    >
                         {handledData.lyrics[index - 2]
                             ? handledData.lyrics[index - 2]
                             : ''}
                     </Text>
-                    <Text color="red" justify="center" fontSize='2xl' fontWeight='extrabold' fontFamily='sans-serif' >
+                    <Text
+                        color="red"
+                        justify="center"
+                        fontSize="2xl"
+                        fontWeight="extrabold"
+                        fontFamily="sans-serif"
+                    >
                         {handledData.lyrics[index - 1]
                             ? handledData.lyrics[index - 1]
                             : ''}
                     </Text>
-                    <Text justify="center" fontWeight='extrabold' fontFamily='sans-serif'>
+                    <Text
+                        justify="center"
+                        fontWeight="extrabold"
+                        fontFamily="sans-serif"
+                    >
                         {handledData.lyrics[index]
                             ? handledData.lyrics[index]
                             : ''}
                     </Text>
-                    <Box boxSize='3.5' />
-                    <Text>Seconds: {currentSeconds}</Text>
-                    {/* <Button
-                        onClick={() => {
-                            //setPlaying(!playing);
-                        }}
-                    >
-                        play
-                    </Button> */}
+                    <Box boxSize="3.5" />
                 </Stack>
             </Center>
         </Container>

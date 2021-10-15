@@ -14,6 +14,7 @@ import Profile from './views/Profile';
 import SongEditor from './components/SongEditor/SongEditor';
 import About from './components/Information/About';
 import Contact from './components/Information/Contact';
+import Karaoke from './views/Karaoke/Karaoke';
 
 function App() {
     return (
@@ -44,7 +45,7 @@ function App() {
                         <LyricsEditor />
                     </Route>
                     <Route path="/edit-lyrics">
-                        <LyricsEditor editing={true}/>
+                        <LyricsEditor editing={true} />
                     </Route>
                     <Route path="/register">
                         <Register />
@@ -54,6 +55,9 @@ function App() {
                     </Route>
                     <Route path="/about">
                         <About />
+                    </Route>
+                    <Route path="/karaoke">
+                        <Karaoke />
                     </Route>
                     <Route path="/contact">
                         <Container>

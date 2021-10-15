@@ -10,7 +10,7 @@ import {
     Box,
     Spacer,
     Divider,
-    useToast
+    useToast,
 } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,7 +52,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     const [lyrics, setStateLyrics] = useState(reduxLyrics);
     const [hasError, setStateHasError] = useState(false);
 
-    const [file, setFile] = useState('');
+    const [file, setFile] = useState(undefined);
     const handleNameChange = (event) => {
         setStateName(event.target.value);
         dispatch(setSongName(event.target.value));
@@ -69,12 +69,8 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     };
 
     const handleFileChange = (event) => {
-        console.log(event.target.files[0]);
         const reader = new FileReader();
-        const url = reader.readAsDataURL(event.target.files[0]);
-        console.log(url);
-        console.log(reader.result);
-        setFile('');
+        setFile(event.target.file[0]);
     };
     const handleLyrics = () => {
         if (editing) {
@@ -85,16 +81,21 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     };
 
     const full = () => {
-        if (name == '' || artist == '' || album == '' || lyrics == '')
+        if (name == '' || artist == '' || album == '' || lyrics == '' || file)
             return false;
         else return true;
     };
-    const missingField = () =>{
-        if (name == '') {return "name"}
-        else if (artist == '') {return "artist"} 
-        else if (album == '')  {return "album"}
-        else if (lyrics == '') {return "lyrics"}
-    }
+    const missingField = () => {
+        if (name == '') {
+            return 'name';
+        } else if (artist == '') {
+            return 'artist';
+        } else if (album == '') {
+            return 'album';
+        } else if (lyrics == '') {
+            return 'lyrics';
+        }
+    };
     const confirmChanges = async () => {
         console.log(full());
         if (full()) {
@@ -122,7 +123,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                 title: `You are missing a field. Check the ${missingField()}`,
                 status: 'error',
                 isClosable: true,
-            })
+            });
         }
     };
 
