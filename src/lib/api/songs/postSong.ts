@@ -1,8 +1,9 @@
 import axios from 'axios';
 import config from '../../../config';
-var FormData = require('form-data');
-var fs = require('fs');
-var data = new FormData();
+//var FormData = require('form-data');
+import fs from 'fs';
+
+
 
 const postSong = async (body: {
     name: string;
@@ -10,6 +11,7 @@ const postSong = async (body: {
     album: string;
     lyrics: string;
 }, file : string) => {
+    const data = new FormData()
     const response = await axios
         .post(`${config.API_URL}/songs`, body)
         .catch((error) => {
@@ -18,9 +20,16 @@ const postSong = async (body: {
             }
         }) as any;
     data.append('song',file);
-    data.append('id',response.id);
+    console.log("id from post", response.data._id)
+    data.append('id',response.data._id);
+    const configu = {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    }
+    console.log(data)
     const upload = await axios
-    .post(`${config.API_URL}/song`)
+    .post(`${config.API_URL}/song`,data,configu)
     .catch((error) => {
         if (error.response && error.response.status === 409) {
             return;
