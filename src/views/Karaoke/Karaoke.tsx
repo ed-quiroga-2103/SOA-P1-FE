@@ -54,6 +54,7 @@ const Karaoke: FC<KaraokeProps> = () => {
         setTime();
 
     };
+    audio.ontimeupdate= (e)=>{handleOnTimeUpdate()}
 
     async function setTime() {
         console.log(progress)
