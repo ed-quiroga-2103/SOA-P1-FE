@@ -12,6 +12,7 @@ import {
     Divider,
     useToast,
 } from '@chakra-ui/react';
+import { read } from 'fs';
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -52,7 +53,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     const [lyrics, setStateLyrics] = useState(reduxLyrics);
     const [hasError, setStateHasError] = useState(false);
 
-    const [file, setFile] = useState('');
+    const [file, setFile] = useState(Object);
     const handleNameChange = (event) => {
         setStateName(event.target.value);
         dispatch(setSongName(event.target.value));
@@ -68,8 +69,12 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
         dispatch(setAlbum(event.target.value));
     };
 
-    const handleFileChange = (event) => {
+    async function handleFileChange (event) {
         const reader = new FileReader();
+        const buff = await event.target.files[0].arrayBuffer();
+        const audioctx = new AudioContext()
+        const audioBuff = await audioctx.decodeAudioData(buff)
+        console.log(audioBuff)
         setFile(event.target.files[0]);
         
     };
@@ -165,6 +170,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                         variant="unstyled"
                         onChange={handleFileChange}
                         type="file"
+                        accept='audio/*'
                     />
                 </FormControl>
                 <FormControl id="lyrics">
