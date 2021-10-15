@@ -52,7 +52,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     const [lyrics, setStateLyrics] = useState(reduxLyrics);
     const [hasError, setStateHasError] = useState(false);
 
-    const [file, setFile] = useState(undefined);
+    const [file, setFile] = useState('');
     const handleNameChange = (event) => {
         setStateName(event.target.value);
         dispatch(setSongName(event.target.value));
@@ -177,9 +177,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                         <Button onClick={handleLyrics}>Edit lyrics!</Button>
                     </Flex>
                 </FormControl>
-                {file.length >= 1 ? (
-                    <Image boxSize="100px" objectFit="cover" src={file[0]} />
-                ) : undefined}
+
                 <Box>
                     {hasError ? (
                         <ErrorWithToolTip
