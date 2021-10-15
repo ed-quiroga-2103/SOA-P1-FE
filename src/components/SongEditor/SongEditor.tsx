@@ -70,7 +70,8 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
 
     const handleFileChange = (event) => {
         const reader = new FileReader();
-        setFile(event.target.file[0]);
+        setFile(event.target.files[0]);
+        
     };
     const handleLyrics = () => {
         if (editing) {
@@ -81,7 +82,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     };
 
     const full = () => {
-        if (name == '' || artist == '' || album == '' || lyrics == '' || file)
+        if (name == '' || artist == '' || album == '' || lyrics == '' || file=='')
             return false;
         else return true;
     };
@@ -98,6 +99,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     };
     const confirmChanges = async () => {
         console.log(full());
+        console.log(file)
         if (full()) {
             if (editing) {
                 console.log('put song');
@@ -115,7 +117,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                     artist: artist,
                     album: album,
                     lyrics: lyrics,
-                });
+                },file);
             }
             history.push('/songs');
         } else {
@@ -177,7 +179,9 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                         <Button onClick={handleLyrics}>Edit lyrics!</Button>
                     </Flex>
                 </FormControl>
-
+                {file.length >= 1 ? (
+                    <Image boxSize="100px" objectFit="cover" src={file[0]} />
+                ) : undefined}
                 <Box>
                     {hasError ? (
                         <ErrorWithToolTip

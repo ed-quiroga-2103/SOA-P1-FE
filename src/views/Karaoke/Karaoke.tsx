@@ -28,6 +28,7 @@ const Karaoke: FC<KaraokeProps> = () => {
     }
 
     const [playing, setPlaying] = useState(false);
+    const [progress, setProgress] = useState(0); // State variables
 
     const reduxId = useSelector(getSongId);
     const reduxLyrics = useSelector(getLyrics);
@@ -37,6 +38,28 @@ const Karaoke: FC<KaraokeProps> = () => {
     );
 
     const [iconPlaying, setIconPlaying] = useState(false);
+
+    const handleOnTimeUpdate = () => {
+        // Helps tracking the progress
+        const progress =
+            (audio.currentTime / audio.duration) *
+            100;
+        setProgress(progress);
+    };
+    const handleVideoProgress = (event) => {
+        // Handles the possibility to drag the progress bar
+        const manualChange = Number(event.target.value);
+        //videoElement.current.currentTime = (videoElement.current.duration / 100) * manualChange;  //This is the reference to the video
+        setProgress(manualChange);
+        setTime();
+
+    };
+
+    async function setTime() {
+        console.log(progress)
+        var update = (progress - 0) * (audio.duration - 0) / (100 - 0) + 0;
+        audio.currentTime= update;
+    }
 
     async function playAudio() {
         await audio.play().catch((error) => {
@@ -84,7 +107,13 @@ const Karaoke: FC<KaraokeProps> = () => {
                             <Icon as={MdPause}></Icon>
                         </IconButton>
                     ) : undefined}
-                    <AudioPlayer playing={false} />
+                    <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={progress}
+                            onChange={(e) => handleVideoProgress(e)}
+                        />
                 </Flex>
             </Container>
         </>

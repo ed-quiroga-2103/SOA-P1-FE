@@ -180,7 +180,14 @@ const SongList: FunctionComponent<SongListProps> = () => {
         }
     }
 
-    function play(algo) {}
+    function play(song) {
+        dispatch(setSongName(song.name));
+        dispatch(setAlbum(song.album));
+        dispatch(setArtist(song.artist));
+        dispatch(setLyrics(song.lyrics));
+        dispatch(setSongId(song._id))
+        history.push('karaoke')
+    }
 
     async function deleteSong(id) {
         if (!(isPremium === 'true')) {
@@ -352,6 +359,9 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                     <Text fontSize={'xl'}>
                                         Why don't you add one?
                                     </Text>
+                                    <Text fontSize={'sm'}>
+                                        Seriously, why?
+                                    </Text>
                                 </Stack>
                             </Center>
                         ) : (
@@ -366,7 +376,7 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                             borderRadius="md"
                                             height="43px"
                                             color="#FE53BB"
-                                            key={song.id}
+                                            key={song._id}
                                         >
                                             <Grid
                                                 templateColumns="repeat(20,1fr)"
