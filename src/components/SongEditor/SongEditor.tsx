@@ -71,10 +71,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
 
     async function handleFileChange (event) {
         const reader = new FileReader();
-        const buff = await event.target.files[0].arrayBuffer();
-        const audioctx = new AudioContext()
-        const audioBuff = await audioctx.decodeAudioData(buff)
-        console.log(audioBuff)
+        console.log(event.target.files[0])
         setFile(event.target.files[0]);
         
     };
@@ -87,7 +84,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
     };
 
     const full = () => {
-        if (name == '' || artist == '' || album == '' || lyrics == '' || file=='')
+        if (name === '' || artist === '' || album === '' || lyrics === '' || (!file.name && !editing))
             return false;
         else return true;
     };
@@ -100,11 +97,13 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
             return 'album';
         } else if (lyrics == '') {
             return 'lyrics';
+        }else if (!file.name){
+            return 'file'
         }
     };
     const confirmChanges = async () => {
+        console.log(file.name)
         console.log(full());
-        console.log(file)
         if (full()) {
             if (editing) {
                 console.log('put song');
@@ -114,7 +113,7 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                     album,
                     lyrics,
                     _id: id,
-                });
+                },file);
             } else {
                 console.log('post song');
                 await api.postSong({
@@ -124,6 +123,11 @@ const SongEditor: FC<SongEditorProps> = ({ editing = false }) => {
                     lyrics: lyrics,
                 },file);
             }
+            toast({
+                title: `The song will be updated in the next couple of minutes!`,
+                status: 'success',
+                isClosable: true,
+            });
             history.push('/songs');
         } else {
             toast({

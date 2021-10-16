@@ -24,7 +24,7 @@ const About: FunctionComponent<AboutProps> = () => {
     return(
         <>
             <Box 
-                bg='gray.200' 
+                bg='#08F7FE' 
                 width="100%"
                 height="87vh"
                 overflow='hidden'
@@ -61,7 +61,7 @@ const About: FunctionComponent<AboutProps> = () => {
                             mt='100px'
                             color='gray.600'
                             >
-                                Placeholder for more text later. We are filling a whole line to see
+                                We'll eventually have more information here, we promise!
                         </Box>
                     </Flex>
                 </Stack>            

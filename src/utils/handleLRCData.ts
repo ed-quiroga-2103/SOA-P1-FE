@@ -2,11 +2,13 @@ const handleLRCData = (data) => {
     const lines = data.split(/\r\n|\r|\n/);
     const timesList = [];
     const lyricsList = [];
+    const otherTimesList = [];
 
     for (const line of lines) {
         const values = line.split(']');
 
         const time = values[0] + ']';
+        otherTimesList.push(time)
         const lyrics = values[1];
 
         const formattedTime = time.replace('[', '').replace(']', '');
@@ -21,9 +23,9 @@ const handleLRCData = (data) => {
     }
 
     timesList.pop();
-    lyricsList.pop();
+    //lyricsList.pop();
 
-    return { times: timesList, lyrics: lyricsList };
+    return { times: timesList, lyrics: lyricsList, timeStamps:otherTimesList };
 };
 
 export default handleLRCData;

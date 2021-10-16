@@ -7,19 +7,20 @@ const Landing: FunctionComponent<LandingProps> = () => {
     const history = useHistory();
     return (
         <>
-            <Center height='100%' bg = 'gray'>
+            <Center height='100%' bg = 'white'>
                 <Stack justify="center" mt='300px'>
-                    <Text color='#08F7FE'>Welcome to the landing page</Text>
-                    <Text color='#08F7FE'>for our amazing website</Text>
-                    <Text color='#08F7FE'>The Karaoke App!</Text>
+                    <Text color='blue'>Welcome to the landing page</Text>
+                    <Text color='blue'>for our amazing website</Text>
+                    <Text color='blue'>The Karaoke App!</Text>
                     <Flex justify="center" >
                         <Button
                             mr={3}
                             onClick={() => {
                                 history.push('/login');
                             }}
-                            bg ='#FE53BB'
-                            color='#08F7FE'
+                            bg ='orange'
+                            color='white'
+                            mb ='100px'
                         >
                             Sing In!
                         </Button>
@@ -28,8 +29,8 @@ const Landing: FunctionComponent<LandingProps> = () => {
                             onClick={() => {
                                 history.push('/register');
                             }}
-                            bg ='#FE53BB'
-                            color='#08F7FE'
+                            bg ='orange'
+                            color='white'
                         >
                             Sing Up!
                         </Button>

@@ -258,8 +258,8 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                 defaultValue={searchCriteria}
                                 mr="3px"
                                 onChange={handleSearchCriteria}
-                                color="white"
-                                bg="#7B61F8"
+                                color="black"
+                                bg="#ffacfc"
                             >
                                 <option value="Song"> Song </option>
                                 <option value="Artist"> Artist </option>
@@ -270,14 +270,14 @@ const SongList: FunctionComponent<SongListProps> = () => {
                                 aria-label="searchButton"
                                 icon={<MdSearch />}
                                 onClick={searchBy}
-                                bg="#7B61F8"
-                                color="white"
+                                bg="#ffacfc"
+                                color="black"
                             />
                         </Flex>
                     </Box>
                 </Flex>
                 <hr />
-                <Box padding="4" bg="#ffacfc" maxW="wxl" borderRadius="xl">
+                <Box padding="4" bg="#FF61BE" maxW="wxl" borderRadius="xl">
                     <Flex justify="right" mb="7px">
                         <Button
                             size="sm"

@@ -7,7 +7,7 @@ import {
     Text,
     Textarea,
 } from '@chakra-ui/react';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getLyrics, setLyrics } from '../../redux/song';
@@ -32,14 +32,21 @@ const LyricsEditor: FC<LyricsEditorProps> = ({ data, editing = false }) => {
         reduxData = reduxLyrics;
     }
 
-    let handledData = { times: [], lyrics: [] };
+    let handledData = { times: [], lyrics: [], timeStamps: [] };
     let times = '[00:00:00]';
     let lyrics = '';
-    if (reduxLyrics !== '') {
-        handledData = handleLRCData(reduxData);
-        times = handledData.times.join('\n');
+    useEffect(()=> {
+        if (reduxLyrics !== '') {
+        console.log(reduxLyrics);
+        handledData = handleLRCData(reduxLyrics);
+        times = handledData.timeStamps.join('\n');
         lyrics = handledData.lyrics.join('\n');
+        setTimesData(times);
+        setLyricsData(lyrics);
     }
+    },[])
+    
+    console.log(lyrics, times);
     const [timesData, setTimesData] = useState(times);
     const [lyricsData, setLyricsData] = useState(lyrics);
     const [hasError, setHasError] = useState(false);
